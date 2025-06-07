@@ -106,6 +106,21 @@
   },
   {
     "id": "sc-008",
+    "name": "Tokyo - Daikanyama",
+    "location": {
+      "lat": 35.6485,
+      "lng": 139.7031
+    },
+    "address": "16-15 Sarugakucho, Shibuya-ku",
+    "city": "Tokyo",
+    "state": "Tokyo",
+    "country": "Japan",
+    "stalls": 4,
+    "amenities": ["restaurants", "shopping", "restrooms", "coffee", "parking"],
+    "status": "active"
+  },
+  {
+    "id": "sc-009",
     "name": "Osaka - Umeda",
     "location": {
       "lat": 34.7055,
@@ -120,7 +135,7 @@
     "status": "active"
   },
   {
-    "id": "sc-009",
+    "id": "sc-010",
     "name": "Seattle - Capitol Hill",
     "location": {
       "lat": 47.6205,
@@ -135,7 +150,7 @@
     "status": "active"
   },
   {
-    "id": "sc-010",
+    "id": "sc-011",
     "name": "Miami - Design District",
     "location": {
       "lat": 25.8103,

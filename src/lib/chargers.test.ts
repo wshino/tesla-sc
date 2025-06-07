@@ -15,7 +15,7 @@ describe('Charger Utilities', () => {
       expect(chargers).toBeDefined()
       expect(Array.isArray(chargers)).toBe(true)
       expect(chargers.length).toBeGreaterThan(0)
-      expect(chargers.length).toBe(22) // We have 22 chargers in our data
+      expect(chargers.length).toBe(23) // We have 23 chargers in our data (including Daikanyama)
     })
 
     it('should have valid charger structure', () => {
@@ -65,6 +65,41 @@ describe('Charger Utilities', () => {
       const nearestChargers = findNearestChargers(35.6762, 139.6503, 100)
       const totalChargers = loadAllChargers().length
       expect(nearestChargers).toHaveLength(totalChargers)
+    })
+
+    it('should use provided chargers array if given', () => {
+      const customChargers = [
+        {
+          id: 'test-1',
+          name: 'Test Charger 1',
+          location: { lat: 34.0522, lng: -118.2437 },
+          address: 'Test Address 1',
+          city: 'Los Angeles',
+          state: 'CA',
+          country: 'USA',
+          stalls: 10,
+          amenities: [],
+          status: 'active' as const,
+        },
+        {
+          id: 'test-2',
+          name: 'Test Charger 2',
+          location: { lat: 35.0522, lng: -118.2437 },
+          address: 'Test Address 2',
+          city: 'Test City',
+          state: 'CA',
+          country: 'USA',
+          stalls: 5,
+          amenities: [],
+          status: 'active' as const,
+        },
+      ]
+
+      const result = findNearestChargers(34.0522, -118.2437, 5, customChargers)
+
+      expect(result).toHaveLength(2)
+      expect(result[0].name).toBe('Test Charger 1')
+      expect(result[0].distance).toBe(0)
     })
   })
 

@@ -54,16 +54,18 @@ function toRadians(degrees: number): number {
  * @param lat Latitude
  * @param lng Longitude
  * @param limit Maximum number of chargers to return (default: 5)
+ * @param chargers Optional array of chargers to search from (defaults to all chargers)
  * @returns Array of nearest chargers with distance
  */
 export function findNearestChargers(
   lat: number,
   lng: number,
-  limit: number = 5
+  limit: number = 5,
+  chargers?: Charger[]
 ): Array<Charger & { distance: number }> {
-  const chargers = loadAllChargers()
+  const chargersToSearch = chargers || loadAllChargers()
 
-  const chargersWithDistance = chargers.map((charger) => ({
+  const chargersWithDistance = chargersToSearch.map((charger) => ({
     ...charger,
     distance: calculateDistance(
       lat,
