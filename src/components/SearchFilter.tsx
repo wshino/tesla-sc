@@ -271,4 +271,3 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
 }
 
 export default SearchFilter
-

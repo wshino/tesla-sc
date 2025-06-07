@@ -41,4 +41,3 @@ export function useTeslaSuperchargers(): UseTeslaSuperchargersReturn {
     refetch: fetchChargers,
   }
 }
-

@@ -157,4 +157,3 @@ This project is licensed under the MIT License.
 - Tesla Supercharger location data
 - OpenStreetMap for map tiles
 - Leaflet for map rendering
-
