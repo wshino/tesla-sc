@@ -4,15 +4,14 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     ports:
       - "3000:3000"
     volumes:
-      - ./:/app
+      - .:/app
       - /app/node_modules
       - /app/.next
     environment:
       - NODE_ENV=development
-      - NEXT_PUBLIC_MAPBOX_TOKEN=${NEXT_PUBLIC_MAPBOX_TOKEN}
-      - GOOGLE_PLACES_API_KEY=${GOOGLE_PLACES_API_KEY}
-    command: npm run dev
+      - WATCHPACK_POLLING=true
+    command: pnpm run dev
