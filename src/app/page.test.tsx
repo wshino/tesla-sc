@@ -1,44 +1,73 @@
-import { describe, it, expect, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 import Home from './page'
-
-// Mock the mapbox module
-vi.mock('@/lib/mapbox', () => ({
-  getMapboxToken: vi.fn(),
-}))
 
 // Mock next/dynamic
 vi.mock('next/dynamic', () => ({
-  default: (_fn: () => Promise<unknown>) => {
+  default: (fn: () => Promise<unknown>) => {
     const Component = () => <div data-testid="map-component">Map Component</div>
-    Component.displayName = 'DynamicMap'
+    Component.displayName = 'DynamicComponent'
     return Component
   },
 }))
 
-import { getMapboxToken } from '@/lib/mapbox'
+// Mock hooks and libraries
+vi.mock('@/hooks/useGeolocation', () => ({
+  useGeolocation: () => ({
+    position: null,
+    error: null,
+    loading: false,
+    permissionState: null,
+    getCurrentPosition: vi.fn(),
+  }),
+}))
+
+vi.mock('@/lib/chargers', () => ({
+  loadAllChargers: vi.fn(() => Promise.resolve([])),
+  findNearestChargers: vi.fn(() => []),
+}))
+
+vi.mock('@/components/CurrentLocationButton', () => ({
+  default: () => <button>Use Current Location</button>,
+}))
+
+vi.mock('@/components/ChargerList', () => ({
+  default: () => <div>Charger List</div>,
+}))
 
 describe('Home Page', () => {
-  it('renders map when token is available', () => {
-    vi.mocked(getMapboxToken).mockReturnValue('test-token')
-
-    render(<Home />)
-    const map = screen.getByTestId('map-component')
-    expect(map).toBeInTheDocument()
+  beforeEach(() => {
+    vi.clearAllMocks()
   })
 
-  it('renders error message when token is not available', () => {
-    vi.mocked(getMapboxToken).mockImplementation(() => {
-      throw new Error('Token not found')
-    })
+  it('renders map when token is available', async () => {
+    // Mock environment variable
+    process.env.NEXT_PUBLIC_MAPBOX_TOKEN = 'test-token'
 
     render(<Home />)
-    const errorHeading = screen.getByText('Map Error')
-    const errorMessage = screen.getByText(
-      'Please set NEXT_PUBLIC_MAPBOX_TOKEN in your environment variables.'
-    )
 
-    expect(errorHeading).toBeInTheDocument()
-    expect(errorMessage).toBeInTheDocument()
+    await waitFor(() => {
+      expect(screen.getByTestId('map-component')).toBeInTheDocument()
+      expect(screen.getByText('Tesla Supercharger Finder')).toBeInTheDocument()
+      expect(screen.getByText('Use Current Location')).toBeInTheDocument()
+      expect(screen.getByText('Charger List')).toBeInTheDocument()
+    })
+  })
+
+  it('renders error message when token is not available', async () => {
+    // Remove environment variable
+    delete process.env.NEXT_PUBLIC_MAPBOX_TOKEN
+
+    render(<Home />)
+
+    await waitFor(() => {
+      expect(screen.getByText('Configuration Required')).toBeInTheDocument()
+      expect(
+        screen.getByText('Please add your Mapbox token to the .env.local file:')
+      ).toBeInTheDocument()
+      expect(
+        screen.getByText('NEXT_PUBLIC_MAPBOX_TOKEN=your_token_here')
+      ).toBeInTheDocument()
+    })
   })
 })

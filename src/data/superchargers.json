@@ -33,7 +33,7 @@
     "id": "sc-003",
     "name": "New York - Times Square",
     "location": {
-      "lat": 40.7580,
+      "lat": 40.758,
       "lng": -73.9855
     },
     "address": "1585 Broadway",
@@ -198,7 +198,7 @@
     "id": "sc-014",
     "name": "Portland - Pearl District",
     "location": {
-      "lat": 45.5260,
+      "lat": 45.526,
       "lng": -122.6826
     },
     "address": "1125 NW 9th Ave",
@@ -274,7 +274,7 @@
     "name": "Yokohama - Minato Mirai",
     "location": {
       "lat": 35.4559,
-      "lng": 139.6310
+      "lng": 139.631
     },
     "address": "1-1-1 Minato Mirai, Nishi-ku",
     "city": "Yokohama",
@@ -289,7 +289,7 @@
     "name": "Atlanta - Midtown",
     "location": {
       "lat": 33.7867,
-      "lng": -84.3850
+      "lng": -84.385
     },
     "address": "1197 Peachtree St NE",
     "city": "Atlanta",

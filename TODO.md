@@ -4,17 +4,20 @@
 
 - [x] Select tech stack (Next.js full-stack)
 - [x] Docker environment setup (Dockerfile, docker-compose)
+- [x] Next.js project initial setup
+- [x] Map display implementation (react-map-gl)
+- [x] Supercharger data static JSON file creation
+- [x] Current location and nearest charger display
+- [x] Test environment setup (Vitest, Testing Library)
 
 ## In Progress 🔄
 
-- [ ] Next.js project initial setup
+- [ ] Integration of all features on main page
 
 ## High Priority 🔴
 
-- [ ] Map display implementation (react-map-gl)
-- [ ] Supercharger data static JSON file creation
-- [ ] Current location and nearest charger display
-- [ ] Test environment setup (Vitest, Testing Library)
+- [ ] Display supercharger markers on map
+- [ ] Connect current location to nearest charger calculation
 
 ## Medium Priority 🟡
 

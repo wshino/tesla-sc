@@ -3,6 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   output: 'standalone',
+  transpilePackages: ['react-map-gl', 'mapbox-gl'],
   // Docker environment configuration
   webpack: (config, { dev, isServer }) => {
     // Enable hot reload in Docker

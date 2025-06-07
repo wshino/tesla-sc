@@ -1,20 +1,20 @@
-'use client';
+'use client'
 
-import React from 'react';
-import { useGeolocation } from '@/hooks/useGeolocation';
+import React from 'react'
+import { useGeolocation } from '@/hooks/useGeolocation'
 
 export interface CurrentLocationButtonProps {
-  onLocationReceived?: (latitude: number, longitude: number) => void;
-  onError?: (error: { code: number; message: string }) => void;
-  className?: string;
-  loadingText?: string;
-  buttonText?: string;
+  onLocationReceived?: (latitude: number, longitude: number) => void
+  onError?: (error: { code: number; message: string }) => void
+  className?: string
+  loadingText?: string
+  buttonText?: string
   errorMessages?: {
-    denied?: string;
-    unavailable?: string;
-    timeout?: string;
-    default?: string;
-  };
+    denied?: string
+    unavailable?: string
+    timeout?: string
+    default?: string
+  }
 }
 
 export const CurrentLocationButton: React.FC<CurrentLocationButtonProps> = ({
@@ -24,47 +24,48 @@ export const CurrentLocationButton: React.FC<CurrentLocationButtonProps> = ({
   loadingText = 'Getting location...',
   buttonText = 'Use Current Location',
   errorMessages = {
-    denied: 'Location permission denied. Please enable location access in your browser settings.',
+    denied:
+      'Location permission denied. Please enable location access in your browser settings.',
     unavailable: 'Location information is unavailable.',
     timeout: 'Location request timed out. Please try again.',
     default: 'An error occurred while getting your location.',
   },
 }) => {
   const { position, loading, error, permissionState, getCurrentPosition } =
-    useGeolocation();
+    useGeolocation()
 
   React.useEffect(() => {
     if (position && onLocationReceived) {
-      onLocationReceived(position.latitude, position.longitude);
+      onLocationReceived(position.latitude, position.longitude)
     }
-  }, [position, onLocationReceived]);
+  }, [position, onLocationReceived])
 
   React.useEffect(() => {
     if (error && onError) {
-      onError(error);
+      onError(error)
     }
-  }, [error, onError]);
+  }, [error, onError])
 
   const handleClick = () => {
-    getCurrentPosition();
-  };
+    getCurrentPosition()
+  }
 
   const getErrorMessage = () => {
-    if (!error) return null;
+    if (!error) return null
 
     switch (error.code) {
       case 1: // PERMISSION_DENIED
-        return errorMessages.denied;
+        return errorMessages.denied
       case 2: // POSITION_UNAVAILABLE
-        return errorMessages.unavailable;
+        return errorMessages.unavailable
       case 3: // TIMEOUT
-        return errorMessages.timeout;
+        return errorMessages.timeout
       default:
-        return errorMessages.default;
+        return errorMessages.default
     }
-  };
+  }
 
-  const errorMessage = getErrorMessage();
+  const errorMessage = getErrorMessage()
 
   return (
     <div className="current-location-button-container">
@@ -81,7 +82,7 @@ export const CurrentLocationButton: React.FC<CurrentLocationButtonProps> = ({
         {loading ? (
           <>
             <svg
-              className="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline"
+              className="-ml-1 mr-3 inline h-5 w-5 animate-spin text-white"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -106,7 +107,7 @@ export const CurrentLocationButton: React.FC<CurrentLocationButtonProps> = ({
         ) : (
           <>
             <svg
-              className="w-5 h-5 mr-2 inline"
+              className="mr-2 inline h-5 w-5"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -132,7 +133,7 @@ export const CurrentLocationButton: React.FC<CurrentLocationButtonProps> = ({
       </button>
       {errorMessage && (
         <div
-          className="error-message mt-2 text-red-600 text-sm"
+          className="error-message mt-2 text-sm text-red-600"
           role="alert"
           aria-live="polite"
         >
@@ -141,7 +142,7 @@ export const CurrentLocationButton: React.FC<CurrentLocationButtonProps> = ({
       )}
       {permissionState === 'denied' && !error && (
         <div
-          className="permission-denied-message mt-2 text-yellow-600 text-sm"
+          className="permission-denied-message mt-2 text-sm text-yellow-600"
           role="alert"
           aria-live="polite"
         >
@@ -149,5 +150,7 @@ export const CurrentLocationButton: React.FC<CurrentLocationButtonProps> = ({
         </div>
       )}
     </div>
-  );
-};
+  )
+}
+
+export default CurrentLocationButton

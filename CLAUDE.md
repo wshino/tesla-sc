@@ -16,6 +16,8 @@
 - Use Tailwind CSS for styling
 - Write all code comments in English
 - Use descriptive English variable and function names
+- Avoid using 'any' type - always define proper TypeScript types
+- Use 'unknown' instead of 'any' when type is truly unknown
 
 ## Testing Commands
 

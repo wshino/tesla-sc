@@ -11,7 +11,7 @@ export interface Charger {
   country: string
   stalls: number
   amenities: string[]
-  status: 'active' | 'maintenance' | 'coming_soon'
+  status: 'operational' | 'active' | 'maintenance' | 'coming_soon'
 }
 
 export type ChargerAmenity =

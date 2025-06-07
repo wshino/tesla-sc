@@ -12,18 +12,18 @@ export function calculateDistance(
   lat2: number,
   lon2: number
 ): number {
-  const R = 6371; // Radius of the Earth in kilometers
-  const dLat = toRad(lat2 - lat1);
-  const dLon = toRad(lon2 - lon1);
+  const R = 6371 // Radius of the Earth in kilometers
+  const dLat = toRad(lat2 - lat1)
+  const dLon = toRad(lon2 - lon1)
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(toRad(lat1)) *
       Math.cos(toRad(lat2)) *
       Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  const distance = R * c;
-  return distance;
+      Math.sin(dLon / 2)
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+  const distance = R * c
+  return distance
 }
 
 /**
@@ -32,7 +32,7 @@ export function calculateDistance(
  * @returns Angle in radians
  */
 function toRad(degrees: number): number {
-  return degrees * (Math.PI / 180);
+  return degrees * (Math.PI / 180)
 }
 
 /**
@@ -41,10 +41,10 @@ function toRad(degrees: number): number {
  * @returns Distance in miles
  */
 export function kmToMiles(km: number): number {
-  return km * 0.621371;
+  return km * 0.621371
 }
 
-export type DistanceUnit = 'km' | 'miles';
+export type DistanceUnit = 'km' | 'miles'
 
 /**
  * Format distance for display with appropriate unit
@@ -59,10 +59,10 @@ export function formatDistance(
   decimals: number = 1
 ): string {
   if (unit === 'miles') {
-    const miles = kmToMiles(distanceKm);
-    return `${miles.toFixed(decimals)} mi`;
+    const miles = kmToMiles(distanceKm)
+    return `${miles.toFixed(decimals)} mi`
   }
-  return `${distanceKm.toFixed(decimals)} km`;
+  return `${distanceKm.toFixed(decimals)} km`
 }
 
 /**
@@ -71,15 +71,17 @@ export function formatDistance(
  * @returns Preferred distance unit
  */
 export function getUserPreferredDistanceUnit(
-  locale: string = typeof navigator !== 'undefined' ? navigator.language : 'en-US'
+  locale: string = typeof navigator !== 'undefined'
+    ? navigator.language
+    : 'en-US'
 ): DistanceUnit {
   // Countries that primarily use miles
-  const milesCountries = ['US', 'GB', 'MM', 'LR'];
-  
+  const milesCountries = ['US', 'GB', 'MM', 'LR']
+
   // Extract country code from locale (e.g., 'en-US' -> 'US')
-  const countryCode = locale.split('-')[1] || locale.toUpperCase();
-  
-  return milesCountries.includes(countryCode) ? 'miles' : 'km';
+  const countryCode = locale.split('-')[1] || locale.toUpperCase()
+
+  return milesCountries.includes(countryCode) ? 'miles' : 'km'
 }
 
 /**
@@ -100,7 +102,7 @@ export function getFormattedDistance(
   unit?: DistanceUnit,
   decimals: number = 1
 ): string {
-  const distanceKm = calculateDistance(lat1, lon1, lat2, lon2);
-  const displayUnit = unit || getUserPreferredDistanceUnit();
-  return formatDistance(distanceKm, displayUnit, decimals);
+  const distanceKm = calculateDistance(lat1, lon1, lat2, lon2)
+  const displayUnit = unit || getUserPreferredDistanceUnit()
+  return formatDistance(distanceKm, displayUnit, decimals)
 }
