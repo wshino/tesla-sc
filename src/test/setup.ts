@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom'
+import { vi } from 'vitest'
 
 // Mock IntersectionObserver
 global.IntersectionObserver = class IntersectionObserver {
@@ -22,3 +23,6 @@ Object.defineProperty(window, 'matchMedia', {
     dispatchEvent: () => {},
   }),
 })
+
+// Mock mapbox-gl CSS
+vi.mock('mapbox-gl/dist/mapbox-gl.css', () => ({}))

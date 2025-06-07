@@ -21,6 +21,7 @@ docker-compose up
 ## 必要なAPIキー
 
 1. **Mapbox Token**
+
    - https://www.mapbox.com/ で無料アカウント作成
    - 無料枠で十分
 
@@ -48,13 +49,16 @@ docker-compose exec app npm run lint
 ## トラブルシューティング
 
 ### ポート3000が使用中の場合
+
 docker-compose.ymlの`ports`を変更:
+
 ```yaml
 ports:
-  - "3001:3000"  # 3001でアクセス
+  - '3001:3000' # 3001でアクセス
 ```
 
 ### node_modulesの問題
+
 ```bash
 docker-compose down
 docker volume prune
