@@ -17,12 +17,14 @@ export function useTeslaSuperchargers(): UseTeslaSuperchargersReturn {
   const fetchChargers = async () => {
     setLoading(true)
     setError(null)
-    
+
     try {
       const data = await fetchTeslaSuperchargers()
       setChargers(data)
     } catch (err) {
-      setError(err instanceof Error ? err : new Error('Failed to fetch chargers'))
+      setError(
+        err instanceof Error ? err : new Error('Failed to fetch chargers')
+      )
     } finally {
       setLoading(false)
     }
@@ -39,3 +41,4 @@ export function useTeslaSuperchargers(): UseTeslaSuperchargersReturn {
     refetch: fetchChargers,
   }
 }
+

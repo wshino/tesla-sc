@@ -37,9 +37,11 @@ export default function ChargerList({
 
   return (
     <div className="h-full overflow-y-auto">
-      <div className="border-b p-4">
-        <h2 className="text-xl font-semibold">Nearby Superchargers</h2>
-        <p className="mt-1 text-sm text-gray-600">
+      <div className="border-b p-3 sm:p-4">
+        <h2 className="text-lg font-semibold sm:text-xl">
+          Nearby Superchargers
+        </h2>
+        <p className="mt-1 text-xs text-gray-600 sm:text-sm">
           {chargers.length} locations found
         </p>
       </div>
@@ -49,16 +51,20 @@ export default function ChargerList({
           <div
             key={charger.id}
             onClick={() => onChargerSelect(charger)}
-            className={`cursor-pointer p-4 transition-colors hover:bg-gray-50 ${
+            className={`cursor-pointer p-3 transition-colors hover:bg-gray-50 sm:p-4 ${
               selectedChargerId === charger.id ? 'bg-blue-50' : ''
             }`}
           >
             <div className="flex items-start justify-between">
               <div className="flex-1">
-                <h3 className="font-semibold">{charger.name}</h3>
-                <p className="mt-1 text-sm text-gray-600">{charger.address}</p>
+                <h3 className="text-sm font-semibold sm:text-base">
+                  {charger.name}
+                </h3>
+                <p className="mt-1 text-xs text-gray-600 sm:text-sm">
+                  {charger.address}
+                </p>
 
-                <div className="mt-2 flex items-center gap-4 text-sm">
+                <div className="mt-2 flex flex-wrap items-center gap-2 text-xs sm:gap-4 sm:text-sm">
                   <span className="flex items-center gap-1">
                     <svg
                       className="h-4 w-4"
@@ -108,7 +114,7 @@ export default function ChargerList({
                     {charger.amenities.slice(0, 3).map((amenity) => (
                       <span
                         key={amenity}
-                        className="rounded-full bg-gray-100 px-2 py-0.5 text-xs"
+                        className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] sm:text-xs"
                       >
                         {amenity}
                       </span>

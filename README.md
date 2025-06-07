@@ -109,6 +109,7 @@ tesla-sc/
 ## Available Supercharger Data
 
 Currently includes data for:
+
 - **Japan**: Tokyo (Roppongi, Odaiba, Daikanyama, Akasaka, Akihabara, Yaesu), Osaka, Kyoto, Yokohama, Nagoya, Kobe, Fukuoka
 - **USA**: Los Angeles, San Francisco, New York, Chicago, Las Vegas, Seattle, Miami, Austin, Boston, Denver, Portland, Phoenix, Nashville, San Diego, Atlanta, Washington DC, Dallas
 
@@ -120,7 +121,7 @@ Edit `docker-compose.yml`:
 
 ```yaml
 ports:
-  - '3001:3000'  # Access via port 3001
+  - '3001:3000' # Access via port 3001
 ```
 
 ### Docker build issues
@@ -156,3 +157,4 @@ This project is licensed under the MIT License.
 - Tesla Supercharger location data
 - OpenStreetMap for map tiles
 - Leaflet for map rendering
+

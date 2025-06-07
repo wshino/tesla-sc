@@ -7,7 +7,7 @@ import { Charger } from '@/types/charger'
 
 // Tesla's official supercharger API endpoint for Japan
 const TESLA_API_BASE = 'https://www.tesla.com'
-const JAPAN_SUPERCHARGERS_URL = `${TESLA_API_BASE}/en_US/findus/list/superchargers/Japan`
+// const JAPAN_SUPERCHARGERS_URL = `${TESLA_API_BASE}/en_US/findus/list/superchargers/Japan`
 
 export interface TeslaSuperchargerData {
   id: string
@@ -38,7 +38,7 @@ export async function fetchTeslaSuperchargers(): Promise<Charger[]> {
     if (!response.ok) {
       throw new Error('Failed to fetch Tesla supercharger data')
     }
-    
+
     const data = await response.json()
     return data.chargers
   } catch (error) {
@@ -81,7 +81,7 @@ export async function getSuperchargerStatus(
     if (!response.ok) {
       throw new Error('Failed to fetch supercharger status')
     }
-    
+
     return await response.json()
   } catch (error) {
     console.error('Error fetching supercharger status:', error)
@@ -93,3 +93,4 @@ export async function getSuperchargerStatus(
     }
   }
 }
+
