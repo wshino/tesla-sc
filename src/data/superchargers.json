@@ -1,0 +1,332 @@
+[
+  {
+    "id": "sc-001",
+    "name": "Los Angeles - Hawthorne",
+    "location": {
+      "lat": 33.9164,
+      "lng": -118.3526
+    },
+    "address": "1 Rocket Rd",
+    "city": "Hawthorne",
+    "state": "CA",
+    "country": "USA",
+    "stalls": 20,
+    "amenities": ["restaurants", "shopping", "restrooms", "wifi", "coffee"],
+    "status": "active"
+  },
+  {
+    "id": "sc-002",
+    "name": "San Francisco - South of Market",
+    "location": {
+      "lat": 37.7749,
+      "lng": -122.4194
+    },
+    "address": "500 Howard St",
+    "city": "San Francisco",
+    "state": "CA",
+    "country": "USA",
+    "stalls": 12,
+    "amenities": ["restaurants", "shopping", "restrooms", "parking"],
+    "status": "active"
+  },
+  {
+    "id": "sc-003",
+    "name": "New York - Times Square",
+    "location": {
+      "lat": 40.7580,
+      "lng": -73.9855
+    },
+    "address": "1585 Broadway",
+    "city": "New York",
+    "state": "NY",
+    "country": "USA",
+    "stalls": 8,
+    "amenities": ["restaurants", "shopping", "restrooms", "hotels", "parking"],
+    "status": "active"
+  },
+  {
+    "id": "sc-004",
+    "name": "Chicago - Downtown",
+    "location": {
+      "lat": 41.8781,
+      "lng": -87.6298
+    },
+    "address": "300 E Randolph St",
+    "city": "Chicago",
+    "state": "IL",
+    "country": "USA",
+    "stalls": 12,
+    "amenities": ["restaurants", "shopping", "restrooms", "parking"],
+    "status": "active"
+  },
+  {
+    "id": "sc-005",
+    "name": "Las Vegas - Strip",
+    "location": {
+      "lat": 36.1146,
+      "lng": -115.1728
+    },
+    "address": "3663 S Las Vegas Blvd",
+    "city": "Las Vegas",
+    "state": "NV",
+    "country": "USA",
+    "stalls": 24,
+    "amenities": ["restaurants", "shopping", "restrooms", "hotels", "wifi"],
+    "status": "active"
+  },
+  {
+    "id": "sc-006",
+    "name": "Tokyo - Roppongi",
+    "location": {
+      "lat": 35.6627,
+      "lng": 139.7318
+    },
+    "address": "6-10-1 Roppongi, Minato-ku",
+    "city": "Tokyo",
+    "state": "Tokyo",
+    "country": "Japan",
+    "stalls": 6,
+    "amenities": ["restaurants", "shopping", "restrooms", "convenience_store"],
+    "status": "active"
+  },
+  {
+    "id": "sc-007",
+    "name": "Tokyo - Odaiba",
+    "location": {
+      "lat": 35.6269,
+      "lng": 139.7744
+    },
+    "address": "1-3-15 Ariake, Koto-ku",
+    "city": "Tokyo",
+    "state": "Tokyo",
+    "country": "Japan",
+    "stalls": 8,
+    "amenities": ["restaurants", "shopping", "restrooms", "parking"],
+    "status": "active"
+  },
+  {
+    "id": "sc-008",
+    "name": "Osaka - Umeda",
+    "location": {
+      "lat": 34.7055,
+      "lng": 135.4983
+    },
+    "address": "3-1-3 Umeda, Kita-ku",
+    "city": "Osaka",
+    "state": "Osaka",
+    "country": "Japan",
+    "stalls": 6,
+    "amenities": ["restaurants", "shopping", "restrooms", "convenience_store"],
+    "status": "active"
+  },
+  {
+    "id": "sc-009",
+    "name": "Seattle - Capitol Hill",
+    "location": {
+      "lat": 47.6205,
+      "lng": -122.3212
+    },
+    "address": "1401 Broadway",
+    "city": "Seattle",
+    "state": "WA",
+    "country": "USA",
+    "stalls": 8,
+    "amenities": ["restaurants", "coffee", "restrooms", "shopping"],
+    "status": "active"
+  },
+  {
+    "id": "sc-010",
+    "name": "Miami - Design District",
+    "location": {
+      "lat": 25.8103,
+      "lng": -80.1896
+    },
+    "address": "3900 Biscayne Blvd",
+    "city": "Miami",
+    "state": "FL",
+    "country": "USA",
+    "stalls": 12,
+    "amenities": ["restaurants", "shopping", "restrooms", "parking"],
+    "status": "active"
+  },
+  {
+    "id": "sc-011",
+    "name": "Austin - Downtown",
+    "location": {
+      "lat": 30.2672,
+      "lng": -97.7431
+    },
+    "address": "601 W 2nd St",
+    "city": "Austin",
+    "state": "TX",
+    "country": "USA",
+    "stalls": 16,
+    "amenities": ["restaurants", "shopping", "restrooms", "wifi"],
+    "status": "active"
+  },
+  {
+    "id": "sc-012",
+    "name": "Boston - Back Bay",
+    "location": {
+      "lat": 42.3501,
+      "lng": -71.0789
+    },
+    "address": "100 Huntington Ave",
+    "city": "Boston",
+    "state": "MA",
+    "country": "USA",
+    "stalls": 10,
+    "amenities": ["restaurants", "shopping", "restrooms", "parking"],
+    "status": "active"
+  },
+  {
+    "id": "sc-013",
+    "name": "Denver - Cherry Creek",
+    "location": {
+      "lat": 39.7169,
+      "lng": -104.9536
+    },
+    "address": "3000 E 1st Ave",
+    "city": "Denver",
+    "state": "CO",
+    "country": "USA",
+    "stalls": 14,
+    "amenities": ["restaurants", "shopping", "restrooms", "coffee"],
+    "status": "active"
+  },
+  {
+    "id": "sc-014",
+    "name": "Portland - Pearl District",
+    "location": {
+      "lat": 45.5260,
+      "lng": -122.6826
+    },
+    "address": "1125 NW 9th Ave",
+    "city": "Portland",
+    "state": "OR",
+    "country": "USA",
+    "stalls": 8,
+    "amenities": ["restaurants", "coffee", "restrooms", "shopping"],
+    "status": "active"
+  },
+  {
+    "id": "sc-015",
+    "name": "Phoenix - Scottsdale",
+    "location": {
+      "lat": 33.4942,
+      "lng": -111.9261
+    },
+    "address": "7014 E Camelback Rd",
+    "city": "Scottsdale",
+    "state": "AZ",
+    "country": "USA",
+    "stalls": 16,
+    "amenities": ["restaurants", "shopping", "restrooms", "parking"],
+    "status": "active"
+  },
+  {
+    "id": "sc-016",
+    "name": "Kyoto - Station",
+    "location": {
+      "lat": 34.9856,
+      "lng": 135.7585
+    },
+    "address": "Higashishiokoji-cho, Shimogyo-ku",
+    "city": "Kyoto",
+    "state": "Kyoto",
+    "country": "Japan",
+    "stalls": 4,
+    "amenities": ["restaurants", "shopping", "restrooms", "convenience_store"],
+    "status": "active"
+  },
+  {
+    "id": "sc-017",
+    "name": "Nashville - Broadway",
+    "location": {
+      "lat": 36.1627,
+      "lng": -86.7816
+    },
+    "address": "501 Broadway",
+    "city": "Nashville",
+    "state": "TN",
+    "country": "USA",
+    "stalls": 10,
+    "amenities": ["restaurants", "hotels", "restrooms", "parking"],
+    "status": "active"
+  },
+  {
+    "id": "sc-018",
+    "name": "San Diego - La Jolla",
+    "location": {
+      "lat": 32.8408,
+      "lng": -117.2729
+    },
+    "address": "8657 Villa La Jolla Dr",
+    "city": "La Jolla",
+    "state": "CA",
+    "country": "USA",
+    "stalls": 12,
+    "amenities": ["restaurants", "shopping", "restrooms", "coffee"],
+    "status": "active"
+  },
+  {
+    "id": "sc-019",
+    "name": "Yokohama - Minato Mirai",
+    "location": {
+      "lat": 35.4559,
+      "lng": 139.6310
+    },
+    "address": "1-1-1 Minato Mirai, Nishi-ku",
+    "city": "Yokohama",
+    "state": "Kanagawa",
+    "country": "Japan",
+    "stalls": 6,
+    "amenities": ["restaurants", "shopping", "restrooms", "parking"],
+    "status": "active"
+  },
+  {
+    "id": "sc-020",
+    "name": "Atlanta - Midtown",
+    "location": {
+      "lat": 33.7867,
+      "lng": -84.3850
+    },
+    "address": "1197 Peachtree St NE",
+    "city": "Atlanta",
+    "state": "GA",
+    "country": "USA",
+    "stalls": 12,
+    "amenities": ["restaurants", "shopping", "restrooms", "parking"],
+    "status": "active"
+  },
+  {
+    "id": "sc-021",
+    "name": "Washington DC - Georgetown",
+    "location": {
+      "lat": 38.9055,
+      "lng": -77.0622
+    },
+    "address": "3222 M St NW",
+    "city": "Washington",
+    "state": "DC",
+    "country": "USA",
+    "stalls": 8,
+    "amenities": ["restaurants", "shopping", "restrooms", "coffee"],
+    "status": "active"
+  },
+  {
+    "id": "sc-022",
+    "name": "Dallas - Uptown",
+    "location": {
+      "lat": 32.7935,
+      "lng": -96.8024
+    },
+    "address": "2501 Cedar Springs Rd",
+    "city": "Dallas",
+    "state": "TX",
+    "country": "USA",
+    "stalls": 14,
+    "amenities": ["restaurants", "shopping", "restrooms", "parking"],
+    "status": "maintenance"
+  }
+]
