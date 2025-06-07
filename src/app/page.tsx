@@ -17,7 +17,15 @@ const LeafletMap = dynamic(() => import('@/components/LeafletMap'), {
 export default function Home() {
   const [chargers, setChargers] = useState<Charger[]>([])
   const [selectedCharger, setSelectedCharger] = useState<Charger | null>(null)
-  const { position: location, error: geoError } = useGeolocation()
+  const { position: location, error: geoError, getCurrentPosition } = useGeolocation({
+    autoGetPosition: true,
+  })
+
+  // Get location on mount
+  useEffect(() => {
+    getCurrentPosition()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // Load chargers on mount
   useEffect(() => {

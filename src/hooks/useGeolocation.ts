@@ -16,6 +16,7 @@ export interface UseGeolocationOptions {
   enableHighAccuracy?: boolean
   timeout?: number
   maximumAge?: number
+  autoGetPosition?: boolean
 }
 
 export interface UseGeolocationReturn {
@@ -35,7 +36,12 @@ export const useGeolocation = (
   const [permissionState, setPermissionState] =
     useState<PermissionState | null>(null)
 
-  const { enableHighAccuracy = true, timeout = 10000, maximumAge = 0 } = options
+  const {
+    enableHighAccuracy = true,
+    timeout = 10000,
+    maximumAge = 0,
+    autoGetPosition = false,
+  } = options
 
   // Check permission state
   useEffect(() => {
@@ -100,6 +106,13 @@ export const useGeolocation = (
       }
     )
   }, [enableHighAccuracy, timeout, maximumAge])
+
+  // Auto get position on mount if enabled
+  useEffect(() => {
+    if (autoGetPosition && permissionState !== 'denied') {
+      getCurrentPosition()
+    }
+  }, [autoGetPosition, permissionState, getCurrentPosition])
 
   return {
     position,

@@ -6,6 +6,7 @@ import { useGeolocation } from '@/hooks/useGeolocation'
 export interface CurrentLocationButtonProps {
   onLocationReceived?: (latitude: number, longitude: number) => void
   onError?: (error: { code: number; message: string }) => void
+  onClick?: () => void
   className?: string
   loadingText?: string
   buttonText?: string
@@ -20,6 +21,7 @@ export interface CurrentLocationButtonProps {
 export const CurrentLocationButton: React.FC<CurrentLocationButtonProps> = ({
   onLocationReceived,
   onError,
+  onClick,
   className = '',
   loadingText = 'Getting location...',
   buttonText = 'Use Current Location',
@@ -47,7 +49,11 @@ export const CurrentLocationButton: React.FC<CurrentLocationButtonProps> = ({
   }, [error, onError])
 
   const handleClick = () => {
-    getCurrentPosition()
+    if (onClick) {
+      onClick()
+    } else {
+      getCurrentPosition()
+    }
   }
 
   const getErrorMessage = () => {
