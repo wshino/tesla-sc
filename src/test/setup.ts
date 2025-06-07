@@ -7,7 +7,7 @@ global.IntersectionObserver = class IntersectionObserver {
   disconnect() {}
   observe() {}
   unobserve() {}
-} as any
+} as unknown as typeof IntersectionObserver
 
 // Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
