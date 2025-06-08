@@ -56,9 +56,28 @@ docker-compose exec app pnpm test
 
 ## Security
 
-- Never commit API keys or secrets
-- Use environment variables for sensitive data
+### CRITICAL: Never Commit Credentials
+- **ABSOLUTELY NEVER commit API keys, passwords, tokens, or any credentials to Git**
+- This includes in code, comments, documentation, or example files
+- Even in documentation, use placeholders like `your-api-key-here` or `<API_KEY>`
+- If you accidentally commit credentials:
+  1. Immediately revoke/rotate the exposed credential
+  2. Use BFG Repo-Cleaner or git filter-branch to remove from history
+  3. Force push to overwrite remote history
+  4. Notify all team members to rebase their local copies
+
+### Environment Variables
+- Store ALL sensitive data in `.env.local` (automatically gitignored)
+- Never create `.env` files without ensuring they're in `.gitignore`
+- Use descriptive names for env vars: `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY`
+- Document required env vars in README without revealing actual values
+
+### Additional Security Practices
 - Validate all user inputs
+- Sanitize data before rendering
+- Use HTTPS for all external API calls
+- Implement proper CORS policies
+- Regular security audits with `npm audit` or `pnpm audit`
 
 ## Documentation
 
