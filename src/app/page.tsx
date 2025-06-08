@@ -10,6 +10,7 @@ import ChargerList from '@/components/ChargerList'
 import SearchFilter, { FilterOptions } from '@/components/SearchFilter'
 import { useTeslaSuperchargers } from '@/hooks/useTeslaSuperchargers'
 import { NearbyPlaces } from '@/components/NearbyPlaces'
+import { MobileBottomSheet } from '@/components/MobileBottomSheet'
 
 // Dynamic import for Map component to avoid SSR issues
 const LeafletMap = dynamic(() => import('@/components/LeafletMap'), {
@@ -120,36 +121,70 @@ export default function Home() {
   const handleChargerSelect = (charger: Charger) => {
     setSelectedCharger(charger)
     setShowNearbyPlaces(true)
+    // Close sidebar on mobile when selecting a charger
+    if (window.innerWidth < 768) {
+      setSidebarOpen(false)
+    }
   }
 
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
     <main className="relative flex h-screen">
-      {/* Mobile Menu Button */}
-      <button
-        onClick={() => setSidebarOpen(!sidebarOpen)}
-        className="absolute left-4 top-4 z-50 rounded-lg bg-white p-2 shadow-lg md:hidden"
-      >
-        <svg
-          className="h-6 w-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d={sidebarOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'}
-          />
-        </svg>
-      </button>
+      {/* Mobile Header */}
+      <div className="absolute left-0 right-0 top-0 z-40 bg-white p-4 shadow-md md:hidden">
+        <div className="flex items-center justify-between">
+          <h1 className="text-lg font-bold">Tesla SC Finder</h1>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => getCurrentPosition()}
+              className="rounded-lg bg-blue-600 p-2.5 text-white hover:bg-blue-700"
+              title="Get current location"
+            >
+              <svg
+                className="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+              </svg>
+            </button>
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="rounded-lg bg-gray-100 p-2.5"
+            >
+            <svg
+              className="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
+          </div>
+        </div>
+      </div>
 
-      {/* Sidebar */}
-      <div
-        className={`absolute z-40 flex h-full w-full transform flex-col bg-white shadow-lg transition-transform duration-300 ease-in-out md:relative md:w-96 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'} `}
-      >
+      {/* Desktop Sidebar */}
+      <div className="hidden md:flex md:w-96 flex-col bg-white shadow-lg">
         {/* Header with location button */}
         <div className="border-b p-4">
           <h1 className="mb-4 text-2xl font-bold">Tesla Supercharger Finder</h1>
@@ -197,20 +232,23 @@ export default function Home() {
       </div>
 
       {/* Map */}
-      <div className="relative flex-1">
-        {/* Mobile overlay when sidebar is open */}
-        {sidebarOpen && (
-          <div
-            className="absolute inset-0 z-30 bg-black bg-opacity-50 md:hidden"
-            onClick={() => setSidebarOpen(false)}
-          />
-        )}
+      <div className="relative flex-1 pt-16 md:pt-0">
         <LeafletMap
           chargers={displayChargers}
           userLocation={location || undefined}
           onChargerClick={handleChargerSelect}
         />
       </div>
+
+      {/* Mobile Bottom Sheet */}
+      <MobileBottomSheet
+        chargers={displayChargers}
+        selectedCharger={selectedCharger}
+        userLocation={location || undefined}
+        onChargerSelect={handleChargerSelect}
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+      />
 
       {/* Nearby Places Modal */}
       {showNearbyPlaces && selectedCharger && (
