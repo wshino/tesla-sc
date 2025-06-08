@@ -21,6 +21,7 @@ export const NearbyPlaces: React.FC<NearbyPlacesProps> = ({
   const [places, setPlaces] = useState<Place[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedType, setSelectedType] = useState<string>('')
+  const [selectedPlace, setSelectedPlace] = useState<Place | null>(null)
 
   useEffect(() => {
     const fetchNearbyPlaces = async () => {
@@ -44,8 +45,8 @@ export const NearbyPlaces: React.FC<NearbyPlacesProps> = ({
 
   return (
     <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black bg-opacity-50 md:p-4">
-      <div className="h-full w-full overflow-hidden bg-white shadow-xl md:max-h-[90vh] md:w-full md:max-w-4xl md:rounded-lg z-[1001]">
-        <div className="border-b p-4 md:p-6">
+      <div className="flex flex-col h-full w-full bg-white shadow-xl md:max-h-[90vh] md:w-full md:max-w-4xl md:rounded-lg z-[1001]">
+        <div className="flex-shrink-0 border-b p-4 md:p-6">
           <div className="flex items-start justify-between">
             <div className="flex-1 pr-2">
               <h2 className="text-lg font-bold text-gray-900 md:text-2xl">
@@ -101,7 +102,7 @@ export const NearbyPlaces: React.FC<NearbyPlacesProps> = ({
           </div>
         </div>
 
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-y-auto overflow-x-hidden">
           {loading ? (
             <div className="p-6 text-center">
               <div className="mx-auto h-10 w-10 md:h-12 md:w-12 animate-spin rounded-full border-b-2 border-blue-600"></div>
@@ -116,7 +117,8 @@ export const NearbyPlaces: React.FC<NearbyPlacesProps> = ({
               {places.map((place) => (
                 <div
                   key={place.place_id}
-                  className="rounded-lg border p-4 transition-shadow hover:shadow-lg"
+                  onClick={() => setSelectedPlace(place)}
+                  className="cursor-pointer rounded-lg border p-4 transition-shadow hover:shadow-lg hover:border-blue-300"
                 >
                   <h3 className="text-lg font-semibold text-gray-900">
                     {place.name}
@@ -165,12 +167,126 @@ export const NearbyPlaces: React.FC<NearbyPlacesProps> = ({
                       </span>
                     </div>
                   )}
+
+                  <div className="mt-3 text-xs text-blue-600">
+                    Click for details
+                  </div>
                 </div>
               ))}
             </div>
           )}
         </div>
       </div>
+
+      {/* Place Details Modal */}
+      {selectedPlace && (
+        <div className="fixed inset-0 z-[1100] flex items-center justify-center bg-black bg-opacity-50 p-4">
+          <div className="max-h-[80vh] w-full max-w-lg overflow-y-auto rounded-lg bg-white p-6 shadow-xl">
+            <div className="flex items-start justify-between">
+              <h3 className="text-xl font-bold text-gray-900">
+                {selectedPlace.name}
+              </h3>
+              <button
+                onClick={() => setSelectedPlace(null)}
+                className="rounded-full p-1 hover:bg-gray-100"
+              >
+                <svg
+                  className="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <p className="mt-2 text-sm text-gray-600">{selectedPlace.vicinity}</p>
+
+            {/* Rating and Price */}
+            <div className="mt-4 flex items-center gap-4">
+              {selectedPlace.rating && (
+                <div className="flex items-center gap-1">
+                  <span className="text-lg text-yellow-500">
+                    {getRatingStars(selectedPlace.rating)}
+                  </span>
+                  <span className="text-sm text-gray-600">
+                    {selectedPlace.rating} ({selectedPlace.user_ratings_total} reviews)
+                  </span>
+                </div>
+              )}
+              {selectedPlace.price_level && (
+                <span className="text-lg text-gray-600">
+                  {getPriceLevel(selectedPlace.price_level)}
+                </span>
+              )}
+            </div>
+
+            {/* Opening Hours */}
+            {selectedPlace.opening_hours && (
+              <div className="mt-4">
+                <span
+                  className={`text-lg font-medium ${
+                    selectedPlace.opening_hours.open_now
+                      ? 'text-green-600'
+                      : 'text-red-600'
+                  }`}
+                >
+                  {selectedPlace.opening_hours.open_now ? '✓ Open Now' : '✗ Closed'}
+                </span>
+              </div>
+            )}
+
+            {/* Categories */}
+            <div className="mt-4">
+              <p className="text-sm font-medium text-gray-700">Categories:</p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {selectedPlace.types.map((type) => (
+                  <span
+                    key={type}
+                    className="rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-600"
+                  >
+                    {formatPlaceType(type)}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Distance from Charger */}
+            <div className="mt-4 rounded bg-blue-50 p-3">
+              <p className="text-sm text-blue-800">
+                Walking distance from {charger.name}
+              </p>
+              <p className="text-xs text-blue-600 mt-1">
+                Approximately 5 minutes walk (within 400m radius)
+              </p>
+            </div>
+
+            {/* Actions */}
+            <div className="mt-6 flex gap-3">
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(selectedPlace.name)}&query_place_id=${selectedPlace.place_id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 rounded-lg bg-blue-600 px-4 py-2 text-center text-white hover:bg-blue-700"
+              >
+                View in Google Maps
+              </a>
+              <button
+                onClick={() => setSelectedPlace(null)}
+                className="flex-1 rounded-lg border border-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-50"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
