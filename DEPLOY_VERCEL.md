@@ -27,11 +27,13 @@ This guide explains how to deploy the Tesla Supercharger Finder app to Vercel.
 ### 3. Configure Project
 
 #### Basic Settings
+
 - **Project Name**: `tesla-sc` (or any name you prefer)
 - **Framework Preset**: `Next.js` (should be auto-detected)
 - **Root Directory**: `.` (no change needed)
 
 #### Build Settings (should be auto-configured, but verify)
+
 - **Build Command**: `pnpm build` or `npm run build`
 - **Output Directory**: `.next` (no change needed)
 - **Install Command**: `pnpm install` or `npm install`
@@ -40,11 +42,12 @@ This guide explains how to deploy the Tesla Supercharger Finder app to Vercel.
 
 Add the following in "Environment Variables" section:
 
-| Name | Value | 
-|------|-------|
+| Name                              | Value                           |
+| --------------------------------- | ------------------------------- |
 | `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` | `your-google-maps-api-key-here` |
 
 **Note**: For production, configure the following restrictions in Google Cloud Console:
+
 - HTTP referrer restrictions (add your deployed URL)
 - API restrictions (enable only Places API)
 
@@ -105,6 +108,7 @@ Creating a pull request automatically creates a preview environment.
 ### Performance Optimization
 
 Vercel automatically provides:
+
 - Image optimization
 - JavaScript compression
 - Global CDN distribution
@@ -113,6 +117,7 @@ Vercel automatically provides:
 ## Monitoring and Analytics
 
 Available in Vercel dashboard:
+
 - Real-time traffic
 - Build times
 - Error logs
@@ -121,10 +126,12 @@ Available in Vercel dashboard:
 ## Security Best Practices
 
 1. **API Key Protection**
+
    - Set HTTP referrer restrictions in Google Cloud Console
    - Enable only required APIs
 
 2. **Environment Variables**
+
    - Always use environment variables for sensitive data
    - Never commit `.env.local` to Git
 

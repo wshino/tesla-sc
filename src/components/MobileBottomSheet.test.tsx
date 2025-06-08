@@ -43,7 +43,9 @@ describe('MobileBottomSheet', () => {
   it('renders when open', () => {
     render(<MobileBottomSheet {...defaultProps} />)
     expect(screen.getByText('Superchargers (2)')).toBeInTheDocument()
-    expect(screen.getByText('Tap a charger to see nearby spots')).toBeInTheDocument()
+    expect(
+      screen.getByText('Tap a charger to see nearby spots')
+    ).toBeInTheDocument()
   })
 
   it('does not render when closed', () => {
@@ -59,8 +61,10 @@ describe('MobileBottomSheet', () => {
 
   it('calls onChargerSelect when charger is clicked', () => {
     const onChargerSelect = vi.fn()
-    render(<MobileBottomSheet {...defaultProps} onChargerSelect={onChargerSelect} />)
-    
+    render(
+      <MobileBottomSheet {...defaultProps} onChargerSelect={onChargerSelect} />
+    )
+
     fireEvent.click(screen.getByText('Tokyo - Roppongi'))
     expect(onChargerSelect).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -74,7 +78,7 @@ describe('MobileBottomSheet', () => {
   it('calls onClose when close button is clicked', () => {
     const onClose = vi.fn()
     render(<MobileBottomSheet {...defaultProps} onClose={onClose} />)
-    
+
     const closeButton = screen.getByRole('button', { name: /close/i })
     fireEvent.click(closeButton)
     expect(onClose).toHaveBeenCalled()
@@ -82,13 +86,12 @@ describe('MobileBottomSheet', () => {
 
   it('highlights selected charger', () => {
     render(
-      <MobileBottomSheet
-        {...defaultProps}
-        selectedCharger={mockChargers[0]}
-      />
+      <MobileBottomSheet {...defaultProps} selectedCharger={mockChargers[0]} />
     )
-    
-    const chargerElement = screen.getByText('Tokyo - Roppongi').closest('div[class*="border-b"]')
+
+    const chargerElement = screen
+      .getByText('Tokyo - Roppongi')
+      .closest('div[class*="border-b"]')
     expect(chargerElement).toHaveClass('bg-blue-50')
   })
 
@@ -101,12 +104,12 @@ describe('MobileBottomSheet', () => {
 
   it('sorts chargers by distance', () => {
     render(<MobileBottomSheet {...defaultProps} />)
-    
+
     const chargerElements = screen.getAllByText(/Tokyo -/)
     // Find which charger appears first
     const firstCharger = chargerElements[0].textContent
     const secondCharger = chargerElements[1].textContent
-    
+
     // One of them should be Daikanyama and the other Roppongi
     expect([firstCharger, secondCharger]).toContain('Tokyo - Daikanyama')
     expect([firstCharger, secondCharger]).toContain('Tokyo - Roppongi')

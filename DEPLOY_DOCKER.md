@@ -81,6 +81,7 @@ curl http://localhost:3000/api/health
 ```
 
 Expected response:
+
 ```json
 {
   "status": "healthy",
@@ -95,6 +96,7 @@ Expected response:
 
 1. Launch EC2 instance (t3.small or larger)
 2. Install Docker:
+
    ```bash
    sudo yum update -y
    sudo yum install docker -y
@@ -103,6 +105,7 @@ Expected response:
    ```
 
 3. Install Docker Compose:
+
    ```bash
    sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
    sudo chmod +x /usr/local/bin/docker-compose
@@ -119,13 +122,14 @@ Expected response:
 ### Deploy on Google Cloud Run
 
 1. Build and push to Google Container Registry:
+
    ```bash
    # Configure Docker for GCR
    gcloud auth configure-docker
-   
+
    # Build and tag
    docker build -f Dockerfile.prod -t gcr.io/YOUR_PROJECT_ID/tesla-sc:latest .
-   
+
    # Push
    docker push gcr.io/YOUR_PROJECT_ID/tesla-sc:latest
    ```
@@ -305,6 +309,7 @@ docker network inspect tesla-sc_default
 ## Security Best Practices
 
 1. **Keep Docker Updated**
+
    ```bash
    sudo apt update && sudo apt upgrade docker-ce
    ```
@@ -312,6 +317,7 @@ docker network inspect tesla-sc_default
 2. **Use Non-root User** (already configured in Dockerfile)
 
 3. **Limit Container Capabilities**
+
    ```yaml
    security_opt:
      - no-new-privileges:true

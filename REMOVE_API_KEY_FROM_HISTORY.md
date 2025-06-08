@@ -3,14 +3,17 @@
 ## IMPORTANT: Steps to remove the exposed API key from git history
 
 ### 1. First, revoke the exposed API key in Google Cloud Console
+
 Go to https://console.cloud.google.com/apis/credentials and revoke the exposed key immediately
 
 ### 2. Install BFG Repo-Cleaner
+
 ```bash
 brew install bfg
 ```
 
 ### 3. Clone a fresh copy of your repo
+
 ```bash
 cd /tmp
 git clone --mirror https://github.com/wshino/tesla-sc.git
@@ -18,27 +21,33 @@ cd tesla-sc.git
 ```
 
 ### 4. Create a file with the text to remove
+
 ```bash
 echo "YOUR-EXPOSED-API-KEY" > ../api-keys.txt
 ```
 
 ### 5. Run BFG to remove the API key from all commits
+
 ```bash
 bfg --replace-text ../api-keys.txt
 ```
 
 ### 6. Clean up the repo
+
 ```bash
 git reflog expire --expire=now --all && git gc --prune=now --aggressive
 ```
 
 ### 7. Push the cleaned history
+
 ```bash
 git push --force
 ```
 
 ### 8. Tell all collaborators to rebase
+
 All collaborators need to:
+
 ```bash
 git fetch origin
 git rebase origin/main

@@ -165,26 +165,26 @@ export default function Home() {
               onClick={() => setSidebarOpen(!sidebarOpen)}
               className="rounded-lg bg-gray-100 p-2.5"
             >
-            <svg
-              className="h-5 w-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </button>
+              <svg
+                className="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
           </div>
         </div>
       </div>
 
       {/* Desktop Sidebar */}
-      <div className="hidden md:flex md:w-96 flex-col bg-white shadow-lg">
+      <div className="hidden flex-col bg-white shadow-lg md:flex md:w-96">
         {/* Header with location button */}
         <div className="border-b p-4">
           <h1 className="mb-4 text-2xl font-bold">Tesla Supercharger Finder</h1>

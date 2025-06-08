@@ -160,7 +160,7 @@ export function getWalkingInfo(
   const distanceMeters = Math.round(distanceKm * 1000)
   const walkingMinutes = calculateWalkingTime(distanceKm)
   const walkingTime = formatWalkingTime(walkingMinutes)
-  
+
   return {
     distanceMeters,
     walkingTime,

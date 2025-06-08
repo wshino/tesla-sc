@@ -15,6 +15,8 @@ export default defineConfig({
       '.idea/**',
       '.git/**',
       '.cache/**',
+      'worktrees/**',
+      'worktree/**',
     ],
     coverage: {
       reporter: ['text', 'json', 'html'],
