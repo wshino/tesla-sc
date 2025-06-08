@@ -6,7 +6,7 @@
 import { Charger } from '@/types/charger'
 
 // Tesla's official supercharger API endpoint for Japan
-const TESLA_API_BASE = 'https://www.tesla.com'
+// const TESLA_API_BASE = 'https://www.tesla.com'
 // const JAPAN_SUPERCHARGERS_URL = `${TESLA_API_BASE}/en_US/findus/list/superchargers/Japan`
 
 export interface TeslaSuperchargerData {

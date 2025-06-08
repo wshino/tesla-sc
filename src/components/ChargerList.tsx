@@ -44,6 +44,9 @@ export default function ChargerList({
         <p className="mt-1 text-xs text-gray-600 sm:text-sm">
           {chargers.length} locations found
         </p>
+        <p className="mt-1 text-xs text-blue-600 sm:text-sm">
+          Click a charger to see nearby entertainment spots
+        </p>
       </div>
 
       <div className="divide-y">

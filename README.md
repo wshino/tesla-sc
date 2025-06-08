@@ -7,19 +7,20 @@ A web application to find Tesla Superchargers near you with real-time location t
 - 🗺️ Interactive map showing Tesla Supercharger locations
 - 📍 Automatic user location detection
 - 📏 Distance calculation from your current location
-- 🔍 Real-time search and filtering (coming soon)
-- 🏪 Nearby facilities information (coming soon)
-- 📱 Responsive design (coming soon)
-- 🚀 No API key required (using OpenStreetMap/Leaflet)
+- 🔍 Real-time search and filtering by status, amenities, country, and stall count
+- 🏪 Nearby entertainment spots and facilities (restaurants, cafes, shopping, etc.)
+- 📱 Responsive design with mobile-friendly sidebar
+- 🚀 Free map display (using OpenStreetMap/Leaflet)
 
 ## Tech Stack
 
 - **Frontend**: Next.js 14 (App Router), React 18, TypeScript
 - **Map**: Leaflet (open-source, no API key needed)
+- **Nearby Places**: Google Places API (optional)
 - **Styling**: Tailwind CSS
-- **Testing**: Vitest, React Testing Library
+- **Testing**: Vitest, React Testing Library, Playwright (E2E)
 - **Development**: Docker, pnpm
-- **Deployment**: Vercel (coming soon)
+- **Deployment**: Vercel
 
 ## Getting Started
 
@@ -35,14 +36,18 @@ A web application to find Tesla Superchargers near you with real-time location t
 git clone https://github.com/wshino/tesla-sc.git
 cd tesla-sc
 
-# 2. Start with Docker
+# 2. (Optional) Set up Google Places API for nearby places
+cp .env.example .env.local
+# Edit .env.local and add your Google Maps API key
+
+# 3. Start with Docker
 docker-compose up
 
-# 3. Open in browser
+# 4. Open in browser
 # http://localhost:3000
 ```
 
-That's it! No API keys or complex setup required.
+The app works without any API keys. To enable the nearby places feature, you'll need a Google Maps API key with Places API enabled.
 
 ## Development
 

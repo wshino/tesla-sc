@@ -9,6 +9,7 @@ import CurrentLocationButton from '@/components/CurrentLocationButton'
 import ChargerList from '@/components/ChargerList'
 import SearchFilter, { FilterOptions } from '@/components/SearchFilter'
 import { useTeslaSuperchargers } from '@/hooks/useTeslaSuperchargers'
+import { NearbyPlaces } from '@/components/NearbyPlaces'
 
 // Dynamic import for Map component to avoid SSR issues
 const LeafletMap = dynamic(() => import('@/components/LeafletMap'), {
@@ -18,6 +19,7 @@ const LeafletMap = dynamic(() => import('@/components/LeafletMap'), {
 
 export default function Home() {
   const [selectedCharger, setSelectedCharger] = useState<Charger | null>(null)
+  const [showNearbyPlaces, setShowNearbyPlaces] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [filters, setFilters] = useState<FilterOptions>({
     status: [],
@@ -117,6 +119,7 @@ export default function Home() {
 
   const handleChargerSelect = (charger: Charger) => {
     setSelectedCharger(charger)
+    setShowNearbyPlaces(true)
   }
 
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -208,6 +211,14 @@ export default function Home() {
           onChargerClick={handleChargerSelect}
         />
       </div>
+
+      {/* Nearby Places Modal */}
+      {showNearbyPlaces && selectedCharger && (
+        <NearbyPlaces
+          charger={selectedCharger}
+          onClose={() => setShowNearbyPlaces(false)}
+        />
+      )}
     </main>
   )
 }
