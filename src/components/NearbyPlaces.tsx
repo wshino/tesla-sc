@@ -8,6 +8,7 @@ import {
   PLACE_TYPES,
 } from '@/lib/google-places'
 import { Charger } from '@/types/charger'
+import { getWalkingInfo } from '@/lib/location'
 
 interface NearbyPlacesProps {
   charger: Charger
@@ -53,7 +54,7 @@ export const NearbyPlaces: React.FC<NearbyPlacesProps> = ({
                 Nearby Places
               </h2>
               <p className="mt-1 text-sm text-gray-600 md:text-base">{charger.name}</p>
-              <p className="mt-0.5 text-xs text-gray-500 md:text-sm">Within 5 min walk</p>
+              <p className="mt-0.5 text-xs text-gray-500 md:text-sm">Within 400m radius</p>
             </div>
             <button
               onClick={onClose}
@@ -120,9 +121,19 @@ export const NearbyPlaces: React.FC<NearbyPlacesProps> = ({
                   onClick={() => setSelectedPlace(place)}
                   className="cursor-pointer rounded-lg border p-4 transition-shadow hover:shadow-lg hover:border-blue-300"
                 >
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    {place.name}
-                  </h3>
+                  <div className="flex items-start justify-between gap-2">
+                    <h3 className="text-lg font-semibold text-gray-900">
+                      {place.name}
+                    </h3>
+                    <span className="flex-shrink-0 rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-700">
+                      {getWalkingInfo(
+                        charger.location.lat,
+                        charger.location.lng,
+                        place.geometry.location.lat,
+                        place.geometry.location.lng
+                      ).walkingTime}
+                    </span>
+                  </div>
                   <p className="mt-1 text-sm text-gray-600">{place.vicinity}</p>
 
                   <div className="mt-2 flex items-center gap-4 text-sm">
@@ -259,12 +270,27 @@ export const NearbyPlaces: React.FC<NearbyPlacesProps> = ({
 
             {/* Distance from Charger */}
             <div className="mt-4 rounded bg-blue-50 p-3">
-              <p className="text-sm text-blue-800">
-                Walking distance from {charger.name}
+              <p className="text-sm font-medium text-blue-800">
+                Distance from {charger.name}
               </p>
-              <p className="text-xs text-blue-600 mt-1">
-                Approximately 5 minutes walk (within 400m radius)
-              </p>
+              {(() => {
+                const walkingInfo = getWalkingInfo(
+                  charger.location.lat,
+                  charger.location.lng,
+                  selectedPlace.geometry.location.lat,
+                  selectedPlace.geometry.location.lng
+                )
+                return (
+                  <div className="mt-1 space-y-1">
+                    <p className="text-lg font-semibold text-blue-900">
+                      {walkingInfo.walkingTime}
+                    </p>
+                    <p className="text-sm text-blue-700">
+                      {walkingInfo.distanceMeters} meters
+                    </p>
+                  </div>
+                )
+              })()}
             </div>
 
             {/* Actions */}
