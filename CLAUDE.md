@@ -21,13 +21,26 @@
 
 ## Testing Commands
 
-Before marking any task as complete, run:
+Before marking any task as complete AND before EVERY commit, run:
 
 ```bash
-docker-compose exec app pnpm type-check
+# Run linter (MUST pass before commit)
 docker-compose exec app pnpm lint
+
+# Run formatter (MUST run before commit)
+docker-compose exec app pnpm format
+
+# Run type check
+docker-compose exec app pnpm type-check
+
+# Run tests
 docker-compose exec app pnpm test
+
+# Build the application
+docker-compose exec app pnpm build
 ```
+
+**IMPORTANT**: Never commit if linter fails. Always fix linting errors first.
 
 ## Package Management
 

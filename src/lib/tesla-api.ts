@@ -79,7 +79,9 @@ export async function getSuperchargerStatus(
 ): Promise<{ available: number; total: number; status: string }> {
   try {
     const baseUrl = typeof window !== 'undefined' ? '' : 'http://localhost:3000'
-    const response = await fetch(`${baseUrl}/api/tesla-superchargers/${chargerId}/status`)
+    const response = await fetch(
+      `${baseUrl}/api/tesla-superchargers/${chargerId}/status`
+    )
     if (!response.ok) {
       throw new Error('Failed to fetch supercharger status')
     }
