@@ -33,7 +33,27 @@ export const NearbyPlaces: React.FC<NearbyPlacesProps> = ({
           radius: 400, // 400m radius (about 5 minutes walk)
           type: selectedType || undefined,
         })
-        setPlaces(results)
+        
+        // Sort results by distance from the charger
+        const sortedResults = results.sort((a, b) => {
+          const distA = getWalkingInfo(
+            charger.location.lat,
+            charger.location.lng,
+            a.geometry.location.lat,
+            a.geometry.location.lng
+          ).distanceMeters
+          
+          const distB = getWalkingInfo(
+            charger.location.lat,
+            charger.location.lng,
+            b.geometry.location.lat,
+            b.geometry.location.lng
+          ).distanceMeters
+          
+          return distA - distB
+        })
+        
+        setPlaces(sortedResults)
       } catch (error) {
         console.error('Error fetching nearby places:', error)
       } finally {
