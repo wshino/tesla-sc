@@ -28,7 +28,7 @@ export const NearbyPlaces: React.FC<NearbyPlacesProps> = ({
       try {
         const results = await searchNearbyPlaces({
           location: charger.location,
-          radius: 1500, // 1.5km radius
+          radius: 400, // 400m radius (about 5 minutes walk)
           type: selectedType || undefined,
         })
         setPlaces(results)
@@ -43,22 +43,23 @@ export const NearbyPlaces: React.FC<NearbyPlacesProps> = ({
   }, [charger, selectedType])
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
-      <div className="max-h-[90vh] w-full max-w-4xl overflow-hidden rounded-lg bg-white shadow-xl">
-        <div className="border-b p-6">
+    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black bg-opacity-50 md:p-4">
+      <div className="h-full w-full overflow-hidden bg-white shadow-xl md:max-h-[90vh] md:w-full md:max-w-4xl md:rounded-lg z-[1001]">
+        <div className="border-b p-4 md:p-6">
           <div className="flex items-start justify-between">
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900">
-                Nearby Places - {charger.name}
+            <div className="flex-1 pr-2">
+              <h2 className="text-lg font-bold text-gray-900 md:text-2xl">
+                Nearby Places
               </h2>
-              <p className="mt-1 text-gray-600">{charger.address}</p>
+              <p className="mt-1 text-sm text-gray-600 md:text-base">{charger.name}</p>
+              <p className="mt-0.5 text-xs text-gray-500 md:text-sm">Within 5 min walk</p>
             </div>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-600"
+              className="rounded-full p-2 hover:bg-gray-100"
             >
               <svg
-                className="h-6 w-6"
+                className="h-5 w-5 md:h-6 md:w-6"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -73,10 +74,10 @@ export const NearbyPlaces: React.FC<NearbyPlacesProps> = ({
             </button>
           </div>
 
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className="mt-3 md:mt-4 flex overflow-x-auto gap-2 pb-2 -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap">
             <button
               onClick={() => setSelectedType('')}
-              className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+              className={`flex-shrink-0 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors md:px-4 md:py-2 ${
                 selectedType === ''
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -88,7 +89,7 @@ export const NearbyPlaces: React.FC<NearbyPlacesProps> = ({
               <button
                 key={key}
                 onClick={() => setSelectedType(value)}
-                className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                className={`flex-shrink-0 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors md:px-4 md:py-2 ${
                   selectedType === value
                     ? 'bg-blue-600 text-white'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -100,18 +101,18 @@ export const NearbyPlaces: React.FC<NearbyPlacesProps> = ({
           </div>
         </div>
 
-        <div className="max-h-[calc(90vh-200px)] overflow-y-auto">
+        <div className="flex-1 overflow-y-auto">
           {loading ? (
             <div className="p-6 text-center">
-              <div className="mx-auto h-12 w-12 animate-spin rounded-full border-b-2 border-blue-600"></div>
-              <p className="mt-4 text-gray-600">Loading nearby places...</p>
+              <div className="mx-auto h-10 w-10 md:h-12 md:w-12 animate-spin rounded-full border-b-2 border-blue-600"></div>
+              <p className="mt-3 text-sm text-gray-600 md:text-base">Loading nearby places...</p>
             </div>
           ) : places.length === 0 ? (
             <div className="p-6 text-center text-gray-600">
               No places found nearby
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-4 p-6 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-3 p-4 md:gap-4 md:p-6 md:grid-cols-2">
               {places.map((place) => (
                 <div
                   key={place.place_id}

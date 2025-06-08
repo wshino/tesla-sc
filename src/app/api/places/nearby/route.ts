@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams
     const lat = searchParams.get('lat')
     const lng = searchParams.get('lng')
-    const radius = searchParams.get('radius') || '1500'
+    const radius = searchParams.get('radius') || '400'
     const type = searchParams.get('type')
     const keyword = searchParams.get('keyword')
 
