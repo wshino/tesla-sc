@@ -55,3 +55,19 @@ jobs:
 
       - name: Build application
         run: pnpm run build
+
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Start Next.js server
+        run: |
+          pnpm run start &
+          sleep 5
+          curl http://localhost:3000 || exit 1
+        env:
+          NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: test-api-key
+
+      - name: Run E2E tests
+        run: pnpm run test:e2e
+        env:
+          NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: test-api-key
