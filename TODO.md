@@ -5,27 +5,59 @@
 - [x] Select tech stack (Next.js full-stack)
 - [x] Docker environment setup (Dockerfile, docker-compose)
 - [x] Next.js project initial setup
-- [x] Map display implementation (react-map-gl)
+- [x] Map display implementation (Leaflet)
 - [x] Supercharger data static JSON file creation
 - [x] Current location and nearest charger display
 - [x] Test environment setup (Vitest, Testing Library)
+- [x] Display supercharger markers on map
+- [x] Connect current location to nearest charger calculation
+- [x] Google Places API nearby facility search
+- [x] Search and filter functionality
+- [x] Responsive design support
+- [x] E2E tests (Playwright)
+- [x] Integration of all features on main page
 
-## In Progress 🔄
+## Phase 1 - New Features 🚀
 
-- [ ] Integration of all features on main page
+### お気に入り機能 (Favorites Feature)
+- [ ] Add favorite button to charger items
+- [ ] Store favorites in localStorage
+- [ ] Create favorites filter/view
+- [ ] Show favorite chargers at top of list (optional)
+- [ ] Add/remove animation for favorites
+- [ ] Tests for favorites functionality
 
-## High Priority 🔴
+### 充電待ち時間タイマー (Charging Timer Feature)
+- [ ] Add charging timer component
+- [ ] Allow users to set expected charging time
+- [ ] Show countdown timer
+- [ ] Browser notification when charging complete
+- [ ] Suggest activities based on remaining time
+- [ ] Persist timer state in localStorage
+- [ ] Tests for timer functionality
 
-- [ ] Display supercharger markers on map
-- [ ] Connect current location to nearest charger calculation
+### ネイティブ広告 (Native Ads Feature)
+- [ ] Create sponsored content component
+- [ ] Insert ads every 5 items in charger list
+- [ ] Add "PR" or "広告" label to ads
+- [ ] Style ads to blend naturally but be distinguishable
+- [ ] Track ad impressions/clicks
+- [ ] Create ad content management system
+- [ ] Ensure ads don't break existing functionality
+- [ ] Tests for ad display logic
 
-## Medium Priority 🟡
+## Phase 2 - Future Features 🔄
 
-- [ ] Google Places API nearby facility search
-- [ ] Search and filter functionality
-- [ ] Responsive design support
-- [ ] Deploy to Vercel
-- [ ] E2E tests (Playwright)
+- [ ] Simple route planning with charging stops
+- [ ] Charger rating system (5-star)
+- [ ] Context-aware ads based on charging time
+- [ ] Charging history tracking
+
+## Phase 3 - Advanced Features 🔮
+
+- [ ] Community features (photos, comments)
+- [ ] Crowd-sourced availability prediction
+- [ ] Advanced ad optimization
 
 ## Implementation Details
 
@@ -85,11 +117,33 @@
 - Optimize build performance
 - Configure custom domain
 
-## Git Worktree Branches
+## Git Worktree Branches for Phase 1
 
 - `main` - Main development branch
-- `feature/map-display` - Map implementation
-- `feature/charger-data` - Supercharger data management
-- `feature/location-services` - Geolocation features
-- `feature/places-api` - Google Places integration
-- `feature/ui-components` - UI components and responsive design
+- `feature/favorites` - Favorites functionality implementation
+- `feature/charging-timer` - Charging timer and notifications
+- `feature/native-ads` - Native advertising integration
+
+### Worktree Setup Commands
+
+```bash
+# Create worktrees directory (already in .gitignore)
+mkdir -p worktrees
+
+# Create feature branches and worktrees
+git worktree add worktrees/favorites -b feature/favorites
+git worktree add worktrees/charging-timer -b feature/charging-timer
+git worktree add worktrees/native-ads -b feature/native-ads
+```
+
+### Development Workflow
+
+1. Each feature is developed in its own worktree
+2. Changes are committed to feature branches
+3. Pull requests are created for code review
+4. Features are merged to main after testing
+5. Worktrees are removed after merge:
+   ```bash
+   git worktree remove worktrees/[feature-name]
+   git branch -d feature/[feature-name]
+   ```
