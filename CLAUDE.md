@@ -57,9 +57,18 @@ docker-compose exec app pnpm test
 ## Security
 
 ### CRITICAL: Never Commit Credentials
-- **ABSOLUTELY NEVER commit API keys, passwords, tokens, or any credentials to Git**
-- This includes in code, comments, documentation, or example files
-- Even in documentation, use placeholders like `your-api-key-here` or `<API_KEY>`
+- **ABSOLUTELY NEVER commit API keys, passwords, tokens, private keys, or any credentials to Git**
+- This includes:
+  - API keys and tokens
+  - Passwords and secrets
+  - **Private keys (RSA, ECDSA, Ed25519)**
+  - SSH keys (id_rsa, id_ecdsa, id_ed25519)
+  - SSL/TLS private keys (.key, .pem files)
+  - Certificates containing private keys
+  - JWT signing keys
+  - Any cryptographic secrets
+- This applies to code, comments, documentation, or example files
+- Even in documentation, use placeholders like `your-api-key-here` or `<PRIVATE_KEY>`
 - If you accidentally commit credentials:
   1. Immediately revoke/rotate the exposed credential
   2. Use BFG Repo-Cleaner or git filter-branch to remove from history
