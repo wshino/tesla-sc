@@ -34,7 +34,8 @@ export async function fetchTeslaSuperchargers(): Promise<Charger[]> {
     // For now, we'll return the static data
     // In a real implementation, this would be a server-side API route
     // that fetches from Tesla's website to avoid CORS issues
-    const response = await fetch('/api/tesla-superchargers')
+    const baseUrl = typeof window !== 'undefined' ? '' : 'http://localhost:3000'
+    const response = await fetch(`${baseUrl}/api/tesla-superchargers`)
     if (!response.ok) {
       throw new Error('Failed to fetch Tesla supercharger data')
     }
@@ -77,7 +78,8 @@ export async function getSuperchargerStatus(
   chargerId: string
 ): Promise<{ available: number; total: number; status: string }> {
   try {
-    const response = await fetch(`/api/tesla-superchargers/${chargerId}/status`)
+    const baseUrl = typeof window !== 'undefined' ? '' : 'http://localhost:3000'
+    const response = await fetch(`${baseUrl}/api/tesla-superchargers/${chargerId}/status`)
     if (!response.ok) {
       throw new Error('Failed to fetch supercharger status')
     }
