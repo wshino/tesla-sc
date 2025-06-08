@@ -20,7 +20,7 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: process.env.CI ? 'list' : 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
@@ -28,7 +28,14 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+
+    /* Timeout for each test */
+    actionTimeout: 10000,
+    navigationTimeout: 10000,
   },
+
+  /* Global timeout for CI */
+  timeout: 30000,
 
   /* Configure projects for major browsers */
   projects: process.env.CI
@@ -36,13 +43,27 @@ export default defineConfig({
         // CI環境では軽量なChromiumのみ実行
         {
           name: 'chromium',
-          use: { ...devices['Desktop Chrome'] },
+          use: {
+            ...devices['Desktop Chrome'],
+            // Alpine Linux環境でのChromium設定
+            launchOptions: {
+              executablePath:
+                process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || undefined,
+            },
+          },
         },
       ]
     : [
         {
           name: 'chromium',
-          use: { ...devices['Desktop Chrome'] },
+          use: {
+            ...devices['Desktop Chrome'],
+            // Alpine Linux環境でのChromium設定
+            launchOptions: {
+              executablePath:
+                process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || undefined,
+            },
+          },
         },
 
         {
@@ -58,7 +79,14 @@ export default defineConfig({
         /* Test against mobile viewports. */
         {
           name: 'Mobile Chrome',
-          use: { ...devices['Pixel 5'] },
+          use: {
+            ...devices['Pixel 5'],
+            // Alpine Linux環境でのChromium設定
+            launchOptions: {
+              executablePath:
+                process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || undefined,
+            },
+          },
         },
         {
           name: 'Mobile Safari',

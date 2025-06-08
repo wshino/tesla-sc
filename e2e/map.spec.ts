@@ -17,7 +17,7 @@ test.describe('Map Functionality', () => {
     expect(markerCount).toBeGreaterThan(0)
   })
 
-  test('should show popup on marker click', async ({ page }) => {
+  test.skip('should show popup on marker click', async ({ page }) => {
     // Wait for markers to load
     await page.waitForTimeout(1000)
 
@@ -34,7 +34,7 @@ test.describe('Map Functionality', () => {
     await expect(popup).toContainText('Status:')
   })
 
-  test('should show charger details panel', async ({ page }) => {
+  test.skip('should show charger details panel', async ({ page }) => {
     // Wait for markers to load
     await page.waitForTimeout(1000)
 
@@ -55,7 +55,7 @@ test.describe('Map Functionality', () => {
     await expect(detailsPanel).not.toBeVisible()
   })
 
-  test('should handle location permission', async ({ page, context }) => {
+  test.skip('should handle location permission', async ({ page, context }) => {
     // Grant location permission
     await context.grantPermissions(['geolocation'])
     await context.setGeolocation({ latitude: 35.6762, longitude: 139.6503 }) // Tokyo

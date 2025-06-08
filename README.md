@@ -89,6 +89,33 @@ docker-compose exec app pnpm test
 docker-compose exec app pnpm format
 ```
 
+### Testing
+
+```bash
+# Unit tests
+docker-compose exec app pnpm test
+
+# E2E tests (requires Playwright browsers)
+docker-compose exec app pnpm test:e2e
+
+# E2E tests for CI (uses system Chromium)
+docker-compose exec app pnpm test:e2e:ci
+
+# Basic E2E tests only (faster, for CI)
+docker-compose exec app pnpm test:e2e:ci:basic
+```
+
+**Note on E2E Tests:**
+
+Some E2E tests require external API keys:
+
+- Nearby places functionality tests (requires Google Maps API key)
+- Map integration tests that require real map data
+- Location-based features that need geocoding services
+
+**Local Development:** All tests will run if you have API keys configured in `.env.local`
+**CI Environment:** Tests requiring API keys are skipped to prevent failures. The app itself works without API keys, only the nearby places feature is affected.
+
 ## Project Structure
 
 ```

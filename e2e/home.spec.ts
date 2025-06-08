@@ -6,7 +6,10 @@ test.describe('Home Page', () => {
   })
 
   test('should display the main title', async ({ page }) => {
-    await expect(page.locator('h1')).toContainText('Tesla Supercharger Finder')
+    // Select the main title in the sidebar/desktop view
+    await expect(page.locator('h1.text-2xl')).toContainText(
+      'Tesla Supercharger Finder'
+    )
   })
 
   test('should have a map container', async ({ page }) => {
@@ -58,22 +61,25 @@ test.describe('Home Page', () => {
     await page.setViewportSize({ width: 375, height: 667 })
 
     // Mobile menu button should be visible
-    const mobileMenuButton = page.locator('button.md\\:hidden').first()
+    const mobileMenuButton = page.locator('.md\\:hidden button').last()
     await expect(mobileMenuButton).toBeVisible()
 
     // Click to open sidebar
     await mobileMenuButton.click()
 
-    // Sidebar should be visible
+    // Bottom sheet should be visible on mobile
     await expect(
-      page.locator('h1:has-text("Tesla Supercharger Finder")')
+      page.locator('[class*="bottom-0"][class*="inset-x-0"]')
     ).toBeVisible()
   })
 
   test('should filter by status', async ({ page }) => {
     // Open filters
-    const filterButton = page.locator('button:has-text("Filters")')
+    const filterButton = page.locator('button:has-text("Filters")').first()
     await filterButton.click()
+
+    // Wait for filter panel to be visible
+    await page.waitForSelector('text=Status', { state: 'visible' })
 
     // Click on active status
     const activeButton = page.locator('button:has-text("active")').first()
@@ -85,7 +91,7 @@ test.describe('Home Page', () => {
 
   test('should filter by country', async ({ page }) => {
     // Open filters
-    const filterButton = page.locator('button:has-text("Filters")')
+    const filterButton = page.locator('button:has-text("Filters")').first()
     await filterButton.click()
 
     // Select Japan
@@ -95,8 +101,10 @@ test.describe('Home Page', () => {
     // Should update filter count
     await expect(filterButton).toContainText('1')
 
+    // Wait for filter to be applied
+    await page.waitForTimeout(1000)
+
     // Should show only Japan chargers
-    await page.waitForTimeout(500)
     const chargerItems = page.locator('[class*="cursor-pointer"]')
     const count = await chargerItems.count()
     expect(count).toBeGreaterThan(0)
@@ -104,7 +112,7 @@ test.describe('Home Page', () => {
 
   test('should clear all filters', async ({ page }) => {
     // Open filters and apply some
-    const filterButton = page.locator('button:has-text("Filters")')
+    const filterButton = page.locator('button:has-text("Filters")').first()
     await filterButton.click()
 
     // Apply filters

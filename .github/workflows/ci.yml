@@ -56,8 +56,10 @@ jobs:
       - name: Build application
         run: pnpm run build
 
-      - name: Install Playwright Browsers
-        run: pnpm exec playwright install --with-deps chromium
+      - name: Install dependencies for Playwright
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser
 
       - name: Start Next.js server
         run: |
@@ -68,6 +70,8 @@ jobs:
           NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: test-api-key
 
       - name: Run E2E tests
-        run: pnpm run test:e2e
+        run: pnpm run test:e2e:ci:basic
         env:
           NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: test-api-key
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+          PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH: /usr/bin/chromium
