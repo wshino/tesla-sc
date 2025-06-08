@@ -1,11 +1,57 @@
+# Dependencies
 node_modules
-npm-debug.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Testing
+coverage
+.nyc_output
+
+# Next.js
 .next
+out
+
+# Production
+build
+dist
+
+# Misc
+.DS_Store
+*.pem
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local env files
+.env
+.env.local
+.env.production.local
+.env.development.local
+.env.test.local
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Git
 .git
 .gitignore
 README.md
-.env
-.env.local
+
+# Docker
+Dockerfile*
+docker-compose*
+
+# IDE
 .vscode
-coverage
-.DS_Store
+.idea
+
+# Worktree
+worktree/
