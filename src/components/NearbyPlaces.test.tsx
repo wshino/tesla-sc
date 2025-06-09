@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react'
 import { NearbyPlaces } from './NearbyPlaces'
 import { Charger } from '@/types/charger'
 import * as googlePlacesLib from '@/lib/google-places'
@@ -190,13 +190,17 @@ describe('NearbyPlaces Component', () => {
     })
   })
 
-  it('should handle close button', () => {
+  it('should handle close button', async () => {
     vi.mocked(googlePlacesLib.searchNearbyPlaces).mockResolvedValue(mockPlaces)
 
-    render(<NearbyPlaces charger={mockCharger} onClose={mockOnClose} />)
+    await act(async () => {
+      render(<NearbyPlaces charger={mockCharger} onClose={mockOnClose} />)
+    })
 
     const closeButton = screen.getAllByRole('button')[0] // First button is close
-    fireEvent.click(closeButton)
+    await act(async () => {
+      fireEvent.click(closeButton)
+    })
 
     expect(mockOnClose).toHaveBeenCalled()
   })

@@ -34,7 +34,7 @@ describe('useGeolocation', () => {
     vi.restoreAllMocks()
   })
 
-  it('should return initial state', () => {
+  it('should return initial state', async () => {
     // Mock permissions.query to return a promise
     mockPermissions.query.mockResolvedValue({
       state: 'prompt' as PermissionState,
@@ -43,10 +43,15 @@ describe('useGeolocation', () => {
 
     const { result } = renderHook(() => useGeolocation())
 
+    // Wait for useEffect to complete
+    await waitFor(() => {
+      expect(result.current.permissionState).toBe('prompt')
+    })
+
     expect(result.current.position).toBeNull()
     expect(result.current.loading).toBe(false)
     expect(result.current.error).toBeNull()
-    expect(result.current.permissionState).toBeNull()
+    expect(result.current.permissionState).toBe('prompt')
     expect(typeof result.current.getCurrentPosition).toBe('function')
   })
 
@@ -73,7 +78,7 @@ describe('useGeolocation', () => {
 
     const { result } = renderHook(() => useGeolocation())
 
-    act(() => {
+    await act(async () => {
       result.current.getCurrentPosition()
     })
 
@@ -107,7 +112,7 @@ describe('useGeolocation', () => {
 
     const { result } = renderHook(() => useGeolocation())
 
-    act(() => {
+    await act(async () => {
       result.current.getCurrentPosition()
     })
 

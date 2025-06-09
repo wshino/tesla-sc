@@ -28,6 +28,7 @@ export interface FilterOptions {
   country: string
   /** Minimum number of charging stalls */
   minStalls: number
+  /** Show favorites only */
   favoritesOnly: boolean
 }
 

@@ -250,7 +250,7 @@ const LeafletMap: React.FC<LeafletMapProps> = ({
         }
       `}</style>
 
-      <div className="relative h-full w-full">
+      <div className="relative h-full w-full" data-testid="map-container">
         <div id="leaflet-map" className="h-full w-full" />
 
         {/* Selected charger info */}
