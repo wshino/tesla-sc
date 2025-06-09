@@ -113,6 +113,7 @@ open http://localhost:3000
 The app works without any API keys! To enable optional features:
 
 1. **Google Places API** (for nearby facilities):
+
    - Get an API key from [Google Cloud Console](https://console.cloud.google.com/)
    - Enable "Places API" and "Maps JavaScript API"
    - Add to `.env.local`: `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your-key-here`

@@ -37,22 +37,26 @@ By participating in this project, you agree to abide by our Code of Conduct:
 ### Setting Up Your Development Environment
 
 1. **Fork the repository**
+
    ```bash
    # Click "Fork" button on GitHub
    ```
 
 2. **Clone your fork**
+
    ```bash
    git clone https://github.com/YOUR_USERNAME/tesla-sc.git
    cd tesla-sc
    ```
 
 3. **Add upstream remote**
+
    ```bash
    git remote add upstream https://github.com/wshino/tesla-sc.git
    ```
 
 4. **Set up the project**
+
    ```bash
    cp .env.example .env.local
    docker-compose up
@@ -68,6 +72,7 @@ By participating in this project, you agree to abide by our Code of Conduct:
 ### Workflow
 
 1. **Stay updated**
+
    ```bash
    git fetch upstream
    git checkout main
@@ -75,16 +80,19 @@ By participating in this project, you agree to abide by our Code of Conduct:
    ```
 
 2. **Create a branch**
+
    ```bash
    git checkout -b feature/descriptive-name
    ```
 
 3. **Make changes**
+
    - Write code
    - Add tests
    - Update documentation
 
 4. **Test your changes**
+
    ```bash
    docker-compose exec app pnpm test
    docker-compose exec app pnpm lint
@@ -92,12 +100,14 @@ By participating in this project, you agree to abide by our Code of Conduct:
    ```
 
 5. **Commit your changes**
+
    ```bash
    git add .
    git commit -m "feat: add amazing feature"
    ```
 
 6. **Push to your fork**
+
    ```bash
    git push origin feature/descriptive-name
    ```
@@ -114,6 +124,7 @@ By participating in this project, you agree to abide by our Code of Conduct:
 - `chore/` - Maintenance tasks
 
 Examples:
+
 - `feature/add-route-planning`
 - `fix/map-marker-position`
 - `docs/update-api-endpoints`
@@ -123,11 +134,13 @@ Examples:
 ### Reporting Bugs
 
 Before submitting a bug report:
+
 1. Check existing issues
 2. Verify the bug in the latest version
 3. Collect relevant information
 
 Include in your report:
+
 - Clear title and description
 - Steps to reproduce
 - Expected vs actual behavior
@@ -137,6 +150,7 @@ Include in your report:
 ### Suggesting Features
 
 We love feature suggestions! Please:
+
 1. Check if already suggested
 2. Provide detailed use case
 3. Explain the benefits
@@ -145,6 +159,7 @@ We love feature suggestions! Please:
 ### Improving Documentation
 
 Documentation is crucial! You can help by:
+
 - Fixing typos or grammar
 - Adding examples
 - Clarifying confusing sections
@@ -163,31 +178,31 @@ Documentation is crucial! You can help by:
 
 ```typescript
 // Use meaningful variable names
-const userLocation = await getCurrentLocation();
+const userLocation = await getCurrentLocation()
 
 // Prefer const over let
-const MAX_RETRIES = 3;
+const MAX_RETRIES = 3
 
 // Use async/await over promises
 async function fetchChargers() {
   try {
-    const response = await fetch('/api/tesla-superchargers');
-    return await response.json();
+    const response = await fetch('/api/tesla-superchargers')
+    return await response.json()
   } catch (error) {
-    console.error('Failed to fetch chargers:', error);
-    throw error;
+    console.error('Failed to fetch chargers:', error)
+    throw error
   }
 }
 
 // Avoid any type
 interface ChargerData {
-  id: string;
-  name: string;
-  location: Coordinates;
+  id: string
+  name: string
+  location: Coordinates
 }
 
 // Use optional chaining
-const city = charger?.address?.city ?? 'Unknown';
+const city = charger?.address?.city ?? 'Unknown'
 ```
 
 ### React Components
@@ -196,12 +211,12 @@ const city = charger?.address?.city ?? 'Unknown';
 // Use functional components with hooks
 export function ChargerCard({ charger }: ChargerCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  
+
   // Handle events properly
   const handleClick = useCallback(() => {
     setIsExpanded(!isExpanded);
   }, [isExpanded]);
-  
+
   return (
     <div className="charger-card" onClick={handleClick}>
       {/* Component content */}
@@ -255,6 +270,7 @@ src/
 We follow [Conventional Commits](https://www.conventionalcommits.org/):
 
 ### Format
+
 ```
 <type>(<scope>): <subject>
 
@@ -264,6 +280,7 @@ We follow [Conventional Commits](https://www.conventionalcommits.org/):
 ```
 
 ### Types
+
 - `feat` - New feature
 - `fix` - Bug fix
 - `docs` - Documentation changes
@@ -274,6 +291,7 @@ We follow [Conventional Commits](https://www.conventionalcommits.org/):
 - `chore` - Maintenance tasks
 
 ### Examples
+
 ```bash
 feat(map): add clustering for dense marker areas
 
@@ -287,6 +305,7 @@ test(e2e): add tests for mobile responsive behavior
 ```
 
 ### Commit Message Rules
+
 1. Use imperative mood ("add" not "added")
 2. Don't capitalize first letter
 3. No period at the end
@@ -310,23 +329,28 @@ test(e2e): add tests for mobile responsive behavior
 
 ```markdown
 ## Description
+
 Brief description of changes
 
 ## Type of Change
+
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Breaking change
 - [ ] Documentation update
 
 ## Testing
+
 - [ ] Unit tests pass
 - [ ] E2E tests pass
 - [ ] Manually tested
 
 ## Screenshots (if applicable)
+
 Add screenshots here
 
 ## Checklist
+
 - [ ] My code follows style guidelines
 - [ ] I've performed self-review
 - [ ] I've commented complex code
@@ -378,35 +402,37 @@ docker-compose exec app pnpm type-check
 ### Writing Tests
 
 #### Unit Tests (Vitest)
+
 ```typescript
-import { describe, it, expect } from 'vitest';
-import { calculateDistance } from '@/lib/location';
+import { describe, it, expect } from 'vitest'
+import { calculateDistance } from '@/lib/location'
 
 describe('calculateDistance', () => {
   it('should calculate distance between two points', () => {
-    const point1 = { lat: 35.6762, lng: 139.6503 };
-    const point2 = { lat: 35.6595, lng: 139.7276 };
-    
-    const distance = calculateDistance(point1, point2);
-    
-    expect(distance).toBeCloseTo(6.89, 1);
-  });
-});
+    const point1 = { lat: 35.6762, lng: 139.6503 }
+    const point2 = { lat: 35.6595, lng: 139.7276 }
+
+    const distance = calculateDistance(point1, point2)
+
+    expect(distance).toBeCloseTo(6.89, 1)
+  })
+})
 ```
 
 #### E2E Tests (Playwright)
+
 ```typescript
-import { test, expect } from '@playwright/test';
+import { test, expect } from '@playwright/test'
 
 test('should display charger list', async ({ page }) => {
-  await page.goto('/');
-  
-  const chargerList = page.getByTestId('charger-list');
-  await expect(chargerList).toBeVisible();
-  
-  const chargers = chargerList.getByRole('button');
-  await expect(chargers).toHaveCount.greaterThan(0);
-});
+  await page.goto('/')
+
+  const chargerList = page.getByTestId('charger-list')
+  await expect(chargerList).toBeVisible()
+
+  const chargers = chargerList.getByRole('button')
+  await expect(chargers).toHaveCount.greaterThan(0)
+})
 ```
 
 ### Test Guidelines
@@ -442,10 +468,10 @@ export function calculateDistance(
 ```typescript
 /**
  * ChargerList Component
- * 
+ *
  * Displays a filterable list of Tesla Supercharger locations
  * with distance calculations from user's current position.
- * 
+ *
  * @example
  * <ChargerList
  *   chargers={chargerData}
@@ -473,6 +499,7 @@ export function calculateDistance(
 ### Recognition
 
 Contributors are recognized in:
+
 - README.md contributors section
 - Release notes
 - Special mentions for significant contributions

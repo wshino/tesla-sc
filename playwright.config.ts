@@ -40,12 +40,12 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: process.env.CI
     ? [
-        // CI環境では軽量なChromiumのみ実行
+        // Run only lightweight Chromium in CI environment
         {
           name: 'chromium',
           use: {
             ...devices['Desktop Chrome'],
-            // Alpine Linux環境でのChromium設定
+            // Chromium settings for Alpine Linux environment
             launchOptions: {
               executablePath:
                 process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || undefined,
@@ -58,7 +58,7 @@ export default defineConfig({
           name: 'chromium',
           use: {
             ...devices['Desktop Chrome'],
-            // Alpine Linux環境でのChromium設定
+            // Chromium settings for Alpine Linux environment
             launchOptions: {
               executablePath:
                 process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || undefined,
@@ -81,7 +81,7 @@ export default defineConfig({
           name: 'Mobile Chrome',
           use: {
             ...devices['Pixel 5'],
-            // Alpine Linux環境でのChromium設定
+            // Chromium settings for Alpine Linux environment
             launchOptions: {
               executablePath:
                 process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || undefined,

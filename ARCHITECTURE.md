@@ -32,6 +32,7 @@ The Tesla Supercharger Finder is a modern web application built with Next.js 14,
 ## Technology Stack
 
 ### Frontend
+
 - **Next.js 14** - React framework with App Router
 - **React 18** - UI library
 - **TypeScript** - Type safety
@@ -39,16 +40,19 @@ The Tesla Supercharger Finder is a modern web application built with Next.js 14,
 - **Leaflet** - Open-source map library
 
 ### Backend
+
 - **Next.js API Routes** - Serverless functions
 - **Node.js** - JavaScript runtime
 
 ### Development
+
 - **Docker** - Containerization
 - **pnpm** - Fast, disk space efficient package manager
 - **Vitest** - Unit testing
 - **Playwright** - E2E testing
 
 ### Deployment
+
 - **Vercel** - Hosting platform (primary)
 - **Docker** - Self-hosting option
 
@@ -84,6 +88,7 @@ App (page.tsx)
 ## Data Flow
 
 ### 1. Initial Load
+
 ```
 User visits site
     ↓
@@ -97,6 +102,7 @@ Map and list components render chargers
 ```
 
 ### 2. Location Detection
+
 ```
 User clicks "Current Location"
     ↓
@@ -110,6 +116,7 @@ Distance calculations update
 ```
 
 ### 3. Nearby Places Search
+
 ```
 User selects a charger
     ↓
@@ -131,11 +138,13 @@ The application uses React's built-in state management:
 ### Key State Areas
 
 1. **Charger Data**
+
    - List of superchargers
    - Filtered/sorted results
    - Selected charger
 
 2. **User Location**
+
    - Current coordinates
    - Location permission status
    - Distance calculations
@@ -161,45 +170,52 @@ Consistent JSON structure:
 
 ```json
 {
-  "data": {},      // Success response
-  "error": "",     // Error message
-  "status": ""     // Status code
+  "data": {}, // Success response
+  "error": "", // Error message
+  "status": "" // Status code
 }
 ```
 
 ## Security Considerations
 
 ### API Key Protection
+
 - Server-side API calls only
 - Environment variables for secrets
 - No client-side API key exposure
 
 ### Input Validation
+
 - Query parameter validation
 - Type checking with TypeScript
 - Sanitization of user inputs
 
 ### CORS Configuration
+
 - Restricted origins in production
 - Proper headers for API responses
 
 ## Performance Optimizations
 
 ### Code Splitting
+
 - Dynamic imports for heavy components
 - Route-based code splitting via Next.js
 
 ### Caching Strategy
+
 - Static data cached for 1 hour
 - API responses cached appropriately
 - Browser caching for assets
 
 ### Image Optimization
+
 - Next.js Image component for optimization
 - Lazy loading for off-screen images
 - Appropriate image formats
 
 ### Map Performance
+
 - Marker clustering for many points
 - Viewport-based rendering
 - Debounced user interactions
@@ -207,16 +223,19 @@ Consistent JSON structure:
 ## Scalability Considerations
 
 ### Horizontal Scaling
+
 - Stateless application design
 - Vercel automatic scaling
 - Docker Swarm/Kubernetes ready
 
 ### Data Scaling
+
 - Currently static JSON data
 - Ready for database integration
 - API pagination prepared
 
 ### Geographic Scaling
+
 - Multi-region deployment capable
 - CDN for static assets
 - Edge functions for API routes
@@ -224,11 +243,13 @@ Consistent JSON structure:
 ## Monitoring and Observability
 
 ### Current Implementation
+
 - Basic health check endpoint
 - Console logging for errors
 - Browser error boundaries
 
 ### Future Enhancements
+
 - Sentry error tracking
 - Performance monitoring
 - User analytics
@@ -237,6 +258,7 @@ Consistent JSON structure:
 ## Development Workflow
 
 ### Local Development
+
 ```
 Docker Compose
     ↓
@@ -248,6 +270,7 @@ Browser Auto-reload
 ```
 
 ### Testing Pipeline
+
 ```
 Unit Tests (Vitest)
     ↓
@@ -259,6 +282,7 @@ Build Verification
 ```
 
 ### Deployment Pipeline
+
 ```
 Git Push
     ↓
@@ -274,21 +298,25 @@ Production
 ## Future Architecture Considerations
 
 ### Microservices
+
 - Separate charger data service
 - User management service
 - Route planning service
 
 ### Real-time Features
+
 - WebSocket for live updates
 - Server-sent events for availability
 - Push notifications
 
 ### Data Layer
+
 - PostgreSQL for structured data
 - Redis for caching
 - Elasticsearch for search
 
 ### Mobile Apps
+
 - React Native code sharing
 - API-first design
 - Progressive Web App
@@ -296,24 +324,28 @@ Production
 ## Decision Log
 
 ### Why Next.js 14?
+
 - Server-side rendering for SEO
 - API routes for backend
 - Excellent developer experience
 - Vercel integration
 
 ### Why Leaflet over Google Maps?
+
 - No API key required
 - Open source
 - Full control over styling
 - Cost-effective
 
 ### Why TypeScript?
+
 - Type safety
 - Better IDE support
 - Self-documenting code
 - Fewer runtime errors
 
 ### Why Docker?
+
 - Consistent environments
 - Easy deployment
 - Local development parity

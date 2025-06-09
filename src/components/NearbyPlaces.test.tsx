@@ -116,7 +116,7 @@ describe('NearbyPlaces Component', () => {
   })
 
   it('should render loading state initially', () => {
-    ;(googlePlacesLib.searchNearbyPlaces as any).mockImplementation(
+    vi.mocked(googlePlacesLib.searchNearbyPlaces).mockImplementation(
       () => new Promise(() => {}) // Never resolves to keep loading state
     )
 
@@ -129,7 +129,7 @@ describe('NearbyPlaces Component', () => {
   })
 
   it('should fetch and display nearby places', async () => {
-    ;(googlePlacesLib.searchNearbyPlaces as any).mockResolvedValue(mockPlaces)
+    vi.mocked(googlePlacesLib.searchNearbyPlaces).mockResolvedValue(mockPlaces)
 
     render(<NearbyPlaces charger={mockCharger} onClose={mockOnClose} />)
 
@@ -145,7 +145,7 @@ describe('NearbyPlaces Component', () => {
   })
 
   it('should display category filter buttons', async () => {
-    ;(googlePlacesLib.searchNearbyPlaces as any).mockResolvedValue(mockPlaces)
+    vi.mocked(googlePlacesLib.searchNearbyPlaces).mockResolvedValue(mockPlaces)
 
     render(<NearbyPlaces charger={mockCharger} onClose={mockOnClose} />)
 
@@ -156,16 +156,16 @@ describe('NearbyPlaces Component', () => {
     // Check filter buttons exist - there might be multiple elements with these texts
     const restaurantButtons = screen.getAllByText('Restaurant')
     expect(restaurantButtons.length).toBeGreaterThan(0)
-    
+
     const cafeButtons = screen.getAllByText('Cafe')
     expect(cafeButtons.length).toBeGreaterThan(0)
-    
+
     const shoppingButtons = screen.getAllByText('Shopping')
     expect(shoppingButtons.length).toBeGreaterThan(0)
   })
 
   it('should filter places by category', async () => {
-    ;(googlePlacesLib.searchNearbyPlaces as any).mockResolvedValue(mockPlaces)
+    vi.mocked(googlePlacesLib.searchNearbyPlaces).mockResolvedValue(mockPlaces)
 
     render(<NearbyPlaces charger={mockCharger} onClose={mockOnClose} />)
 
@@ -178,7 +178,7 @@ describe('NearbyPlaces Component', () => {
     const filterButton = restaurantButtons.find(
       (button) => button.tagName === 'BUTTON'
     )!
-    
+
     fireEvent.click(filterButton)
 
     await waitFor(() => {
@@ -191,7 +191,7 @@ describe('NearbyPlaces Component', () => {
   })
 
   it('should handle close button', () => {
-    ;(googlePlacesLib.searchNearbyPlaces as any).mockResolvedValue(mockPlaces)
+    vi.mocked(googlePlacesLib.searchNearbyPlaces).mockResolvedValue(mockPlaces)
 
     render(<NearbyPlaces charger={mockCharger} onClose={mockOnClose} />)
 
@@ -202,7 +202,7 @@ describe('NearbyPlaces Component', () => {
   })
 
   it('should display place details when clicked', async () => {
-    ;(googlePlacesLib.searchNearbyPlaces as any).mockResolvedValue(mockPlaces)
+    vi.mocked(googlePlacesLib.searchNearbyPlaces).mockResolvedValue(mockPlaces)
 
     render(<NearbyPlaces charger={mockCharger} onClose={mockOnClose} />)
 
@@ -219,19 +219,23 @@ describe('NearbyPlaces Component', () => {
       // Multiple elements might have the same text
       const mainStElements = screen.getAllByText('100 Main St')
       expect(mainStElements.length).toBeGreaterThan(0)
-      
+
       // Multiple star ratings might be displayed
       const starRatings = screen.getAllByText('★★★★☆')
       expect(starRatings.length).toBeGreaterThan(0)
-      
+
       expect(screen.getByText('4.5 (100 reviews)')).toBeInTheDocument()
-      expect(screen.getByText('¥¥')).toBeInTheDocument() // Price level 2
+
+      // Multiple price levels might be displayed
+      const priceLevels = screen.getAllByText('¥¥')
+      expect(priceLevels.length).toBeGreaterThan(0)
+
       expect(screen.getByText('✓ Open Now')).toBeInTheDocument()
     })
   })
 
   it('should close place details modal', async () => {
-    ;(googlePlacesLib.searchNearbyPlaces as any).mockResolvedValue(mockPlaces)
+    vi.mocked(googlePlacesLib.searchNearbyPlaces).mockResolvedValue(mockPlaces)
 
     render(<NearbyPlaces charger={mockCharger} onClose={mockOnClose} />)
 
@@ -258,7 +262,7 @@ describe('NearbyPlaces Component', () => {
   })
 
   it('should handle empty results', async () => {
-    ;(googlePlacesLib.searchNearbyPlaces as any).mockResolvedValue([])
+    vi.mocked(googlePlacesLib.searchNearbyPlaces).mockResolvedValue([])
 
     render(<NearbyPlaces charger={mockCharger} onClose={mockOnClose} />)
 
@@ -271,7 +275,7 @@ describe('NearbyPlaces Component', () => {
     const consoleErrorSpy = vi
       .spyOn(console, 'error')
       .mockImplementation(() => {})
-    ;(googlePlacesLib.searchNearbyPlaces as any).mockRejectedValue(
+    vi.mocked(googlePlacesLib.searchNearbyPlaces).mockRejectedValue(
       new Error('API Error')
     )
 
@@ -290,7 +294,7 @@ describe('NearbyPlaces Component', () => {
   })
 
   it('should display Google Maps link for directions', async () => {
-    ;(googlePlacesLib.searchNearbyPlaces as any).mockResolvedValue(mockPlaces)
+    vi.mocked(googlePlacesLib.searchNearbyPlaces).mockResolvedValue(mockPlaces)
 
     render(<NearbyPlaces charger={mockCharger} onClose={mockOnClose} />)
 
@@ -324,7 +328,7 @@ describe('NearbyPlaces Component', () => {
         geometry: { location: { lat: 37.775, lng: -122.4195 } },
       }, // Near
     ]
-    ;(googlePlacesLib.searchNearbyPlaces as any).mockResolvedValue(
+    vi.mocked(googlePlacesLib.searchNearbyPlaces).mockResolvedValue(
       unsortedPlaces
     )
 

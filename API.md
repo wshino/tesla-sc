@@ -105,22 +105,22 @@ No parameters required.
 
 #### Response Fields
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `chargers` | Array | List of supercharger locations |
-| `chargers[].id` | String | Unique identifier for the charger |
-| `chargers[].name` | String | Display name of the location |
-| `chargers[].location` | Object | Geographic coordinates |
-| `chargers[].location.lat` | Number | Latitude |
-| `chargers[].location.lng` | Number | Longitude |
-| `chargers[].address` | String | Street address |
-| `chargers[].city` | String | City name |
-| `chargers[].state` | String | State/Prefecture |
-| `chargers[].country` | String | Country name |
-| `chargers[].stalls` | Number | Number of charging stalls |
-| `chargers[].amenities` | Array | Available amenities |
-| `chargers[].status` | String | Current status (active/inactive/maintenance) |
-| `lastUpdated` | String | ISO 8601 timestamp of last data update |
+| Field                     | Type   | Description                                  |
+| ------------------------- | ------ | -------------------------------------------- |
+| `chargers`                | Array  | List of supercharger locations               |
+| `chargers[].id`           | String | Unique identifier for the charger            |
+| `chargers[].name`         | String | Display name of the location                 |
+| `chargers[].location`     | Object | Geographic coordinates                       |
+| `chargers[].location.lat` | Number | Latitude                                     |
+| `chargers[].location.lng` | Number | Longitude                                    |
+| `chargers[].address`      | String | Street address                               |
+| `chargers[].city`         | String | City name                                    |
+| `chargers[].state`        | String | State/Prefecture                             |
+| `chargers[].country`      | String | Country name                                 |
+| `chargers[].stalls`       | Number | Number of charging stalls                    |
+| `chargers[].amenities`    | Array  | Available amenities                          |
+| `chargers[].status`       | String | Current status (active/inactive/maintenance) |
+| `lastUpdated`             | String | ISO 8601 timestamp of last data update       |
 
 #### Status Codes
 
@@ -147,13 +147,13 @@ GET /api/places/nearby
 
 #### Request Parameters
 
-| Parameter | Type | Required | Description | Default |
-|-----------|------|----------|-------------|---------|
-| `lat` | Number | Yes | Latitude coordinate | - |
-| `lng` | Number | Yes | Longitude coordinate | - |
-| `radius` | Number | No | Search radius in meters | 400 |
-| `type` | String | No | Place type filter | - |
-| `keyword` | String | No | Search keyword | - |
+| Parameter | Type   | Required | Description             | Default |
+| --------- | ------ | -------- | ----------------------- | ------- |
+| `lat`     | Number | Yes      | Latitude coordinate     | -       |
+| `lng`     | Number | Yes      | Longitude coordinate    | -       |
+| `radius`  | Number | No       | Search radius in meters | 400     |
+| `type`    | String | No       | Place type filter       | -       |
+| `keyword` | String | No       | Search keyword          | -       |
 
 #### Supported Place Types
 
@@ -196,19 +196,19 @@ GET /api/places/nearby
 
 #### Response Fields
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `results` | Array | List of nearby places |
-| `results[].place_id` | String | Unique place identifier |
-| `results[].name` | String | Place name |
-| `results[].vicinity` | String | Address or vicinity description |
-| `results[].geometry.location` | Object | Geographic coordinates |
-| `results[].types` | Array | Place categories |
-| `results[].rating` | Number | Average rating (1-5) |
-| `results[].user_ratings_total` | Number | Total number of ratings |
-| `results[].price_level` | Number | Price level (0-4) |
-| `results[].opening_hours.open_now` | Boolean | Currently open status |
-| `status` | String | API response status |
+| Field                              | Type    | Description                     |
+| ---------------------------------- | ------- | ------------------------------- |
+| `results`                          | Array   | List of nearby places           |
+| `results[].place_id`               | String  | Unique place identifier         |
+| `results[].name`                   | String  | Place name                      |
+| `results[].vicinity`               | String  | Address or vicinity description |
+| `results[].geometry.location`      | Object  | Geographic coordinates          |
+| `results[].types`                  | Array   | Place categories                |
+| `results[].rating`                 | Number  | Average rating (1-5)            |
+| `results[].user_ratings_total`     | Number  | Total number of ratings         |
+| `results[].price_level`            | Number  | Price level (0-4)               |
+| `results[].opening_hours.open_now` | Boolean | Currently open status           |
+| `status`                           | String  | API response status             |
 
 #### Status Codes
 
@@ -254,13 +254,13 @@ All endpoints follow a consistent error response format:
 
 ### Common Error Codes
 
-| Status Code | Description |
-|-------------|-------------|
-| `400` | Bad Request - Invalid parameters |
-| `404` | Not Found - Endpoint not found |
-| `429` | Too Many Requests - Rate limit exceeded |
-| `500` | Internal Server Error |
-| `503` | Service Unavailable |
+| Status Code | Description                             |
+| ----------- | --------------------------------------- |
+| `400`       | Bad Request - Invalid parameters        |
+| `404`       | Not Found - Endpoint not found          |
+| `429`       | Too Many Requests - Rate limit exceeded |
+| `500`       | Internal Server Error                   |
+| `503`       | Service Unavailable                     |
 
 ---
 
@@ -288,12 +288,15 @@ Cache duration can be configured via the `CACHE_DURATION` environment variable.
 ### Planned Endpoints
 
 1. **Route Planning**
+
    ```
    POST /api/routes/plan
    ```
+
    Calculate optimal routes between locations with charging stops.
 
 2. **User Favorites**
+
    ```
    GET /api/users/{userId}/favorites
    POST /api/users/{userId}/favorites
@@ -301,9 +304,11 @@ Cache duration can be configured via the `CACHE_DURATION` environment variable.
    ```
 
 3. **Real-time Availability**
+
    ```
    GET /api/tesla-superchargers/{chargerId}/availability
    ```
+
    Get real-time stall availability (requires Tesla API integration).
 
 4. **Charger Reviews**
@@ -315,6 +320,7 @@ Cache duration can be configured via the `CACHE_DURATION` environment variable.
 ### Authentication
 
 Future versions will support:
+
 - API key authentication
 - OAuth 2.0 for user accounts
 - JWT tokens for session management
@@ -327,19 +333,21 @@ Future versions will support:
 
 ```typescript
 // Fetch all superchargers
-const response = await fetch('https://api.example.com/api/tesla-superchargers');
-const data = await response.json();
+const response = await fetch('https://api.example.com/api/tesla-superchargers')
+const data = await response.json()
 
 // Search nearby places
 const params = new URLSearchParams({
   lat: '35.6627',
   lng: '139.7318',
   radius: '500',
-  type: 'restaurant'
-});
+  type: 'restaurant',
+})
 
-const placesResponse = await fetch(`https://api.example.com/api/places/nearby?${params}`);
-const places = await placesResponse.json();
+const placesResponse = await fetch(
+  `https://api.example.com/api/places/nearby?${params}`
+)
+const places = await placesResponse.json()
 ```
 
 ### Python
@@ -367,6 +375,7 @@ places = response.json()
 ## Support
 
 For API support, please:
+
 1. Check the [GitHub Issues](https://github.com/wshino/tesla-sc/issues)
 2. Review the [Contributing Guidelines](CONTRIBUTING.md)
 3. Contact the development team
@@ -376,6 +385,7 @@ For API support, please:
 ## Changelog
 
 ### Version 1.0.0 (Current)
+
 - Initial API release
 - Health check endpoint
 - Tesla Supercharger locations (static data)

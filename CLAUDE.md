@@ -38,9 +38,16 @@ docker-compose exec app pnpm test
 
 # Build the application
 docker-compose exec app pnpm build
+
+# Check for Japanese text in files (MUST pass before commit)
+# Ensure no Japanese characters (hiragana, katakana, kanji) in code or documentation
+docker-compose exec app grep -r -P '[\p{Hiragana}\p{Katakana}\p{Han}]' --include="*.ts" --include="*.tsx" --include="*.js" --include="*.jsx" --include="*.md" --include="*.json" . || echo "No Japanese text found ✓"
 ```
 
-**IMPORTANT**: Never commit if linter fails. Always fix linting errors first.
+**IMPORTANT**:
+
+- Never commit if linter fails. Always fix linting errors first.
+- Never commit if Japanese text is found. All code, comments, and documentation must be in English.
 
 ## Package Management
 
