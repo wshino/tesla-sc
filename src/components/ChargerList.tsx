@@ -65,7 +65,7 @@ export default function ChargerList({
   })
 
   return (
-    <div className="h-full overflow-y-auto">
+    <div className="h-full overflow-y-auto" data-testid="charger-list">
       <div className="border-b p-3 sm:p-4">
         <h2 className="text-lg font-semibold sm:text-xl">
           Nearby Superchargers

@@ -9,18 +9,6 @@
 
 A web application to find Tesla Superchargers near you with real-time location tracking and nearby facilities information.
 
-## 📸 Screenshots
-
-<div align="center">
-  <img src="screenshots/desktop-view.png" alt="Desktop View" width="600">
-  <p><em>Desktop view with interactive map and charger list</em></p>
-</div>
-
-<div align="center">
-  <img src="screenshots/mobile-view.png" alt="Mobile View" width="300">
-  <p><em>Mobile responsive design with bottom sheet</em></p>
-</div>
-
 ## Features
 
 - 🗺️ Interactive map showing Tesla Supercharger locations
