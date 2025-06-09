@@ -3,29 +3,32 @@ FROM node:20-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Install pnpm
-RUN corepack enable
-RUN corepack prepare pnpm@latest --activate
+# Install pnpm with specific version for consistency
+RUN corepack enable && corepack prepare pnpm@10.11.1 --activate
 
 # Copy dependency files
 COPY package.json pnpm-lock.yaml* ./
 
-# Install dependencies
-RUN pnpm install --frozen-lockfile
+# Install only production dependencies
+RUN pnpm install --frozen-lockfile --prod
 
 # Builder stage
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Install pnpm
-RUN corepack enable
-RUN corepack prepare pnpm@latest --activate
+# Install pnpm with specific version
+RUN corepack enable && corepack prepare pnpm@10.11.1 --activate
 
-# Copy dependencies from deps stage
-COPY --from=deps /app/node_modules ./node_modules
+# Copy all dependency files first
+COPY package.json pnpm-lock.yaml* ./
+
+# Install all dependencies (including dev) for building
+RUN pnpm install --frozen-lockfile
+
+# Copy source code
 COPY . .
 
-# Build the application
+# Build the application with standalone output
 ENV NEXT_TELEMETRY_DISABLED 1
 RUN pnpm build
 

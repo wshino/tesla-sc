@@ -8,8 +8,8 @@ import { useFavorites } from '@/hooks/useFavorites'
 
 // Fix Leaflet default marker icons
 if (typeof window !== 'undefined') {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  delete (L.Icon.Default.prototype as any)._getIconUrl
+  delete (L.Icon.Default.prototype as unknown as { _getIconUrl?: unknown })
+    ._getIconUrl
   L.Icon.Default.mergeOptions({
     iconRetinaUrl: '/leaflet/marker-icon-2x.png',
     iconUrl: '/leaflet/marker-icon.png',
@@ -94,8 +94,7 @@ const LeafletMap: React.FC<LeafletMapProps> = ({
         mapRef.current = null
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [userLocation])
 
   // Update map center when user location changes
   useEffect(() => {
