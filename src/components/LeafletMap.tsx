@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { Charger } from '@/types/charger'
+import { useFavorites } from '@/hooks/useFavorites'
 
 // Fix Leaflet default marker icons
 if (typeof window !== 'undefined') {
@@ -61,6 +62,7 @@ const LeafletMap: React.FC<LeafletMapProps> = ({
   const markersRef = useRef<L.Marker[]>([])
   const userMarkerRef = useRef<L.Marker | null>(null)
   const [selectedCharger, setSelectedCharger] = useState<Charger | null>(null)
+  const { isFavorite } = useFavorites()
 
   // Initialize map
   useEffect(() => {
@@ -140,22 +142,25 @@ const LeafletMap: React.FC<LeafletMapProps> = ({
     markersRef.current.forEach((marker) => marker.remove())
     markersRef.current = []
 
-    // Custom icon for Tesla Supercharger
-    const superchargerIcon = L.divIcon({
-      html: `
-        <svg width="30" height="40" viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 0C5.373 0 0 5.373 0 12c0 9 12 20 12 20s12-11 12-20c0-6.627-5.373-12-12-12zm0 16c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4z" fill="#E31937"/>
-          <path d="M13 8h-2l-1 3h2v5l3-6h-2z" fill="white"/>
-        </svg>
-      `,
-      className: 'supercharger-marker',
-      iconSize: [30, 40],
-      iconAnchor: [15, 40],
-      popupAnchor: [0, -40],
-    })
-
     // Add new markers
     chargers.forEach((charger) => {
+      const isFav = isFavorite(charger.id)
+
+      // Custom icon for Tesla Supercharger (different color for favorites)
+      const superchargerIcon = L.divIcon({
+        html: `
+          <svg width="30" height="40" viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 9 12 20 12 20s12-11 12-20c0-6.627-5.373-12-12-12zm0 16c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4z" fill="${isFav ? '#FFD700' : '#E31937'}"/>
+            <path d="M13 8h-2l-1 3h2v5l3-6h-2z" fill="white"/>
+            ${isFav ? '<path d="M12 3l1.5 3.5 3.5.5-2 3 2 3-3.5.5L12 17l-1.5-3.5L7 13l2-3-2-3 3.5-.5z" fill="white" opacity="0.8"/>' : ''}
+          </svg>
+        `,
+        className: 'supercharger-marker',
+        iconSize: [30, 40],
+        iconAnchor: [15, 40],
+        popupAnchor: [0, -40],
+      })
+
       const marker = L.marker([charger.location.lat, charger.location.lng], {
         icon: superchargerIcon,
       })
@@ -186,7 +191,7 @@ const LeafletMap: React.FC<LeafletMapProps> = ({
 
       markersRef.current.push(marker)
     })
-  }, [chargers, onChargerClick])
+  }, [chargers, onChargerClick, isFavorite])
 
   return (
     <>

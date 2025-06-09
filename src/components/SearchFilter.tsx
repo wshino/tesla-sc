@@ -28,6 +28,7 @@ export interface FilterOptions {
   country: string
   /** Minimum number of charging stalls */
   minStalls: number
+  favoritesOnly: boolean
 }
 
 /**
@@ -68,6 +69,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
     amenities: [],
     country: '',
     minStalls: 0,
+    favoritesOnly: false,
   })
   const [showFilters, setShowFilters] = useState(false)
 
@@ -109,6 +111,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
       amenities: [],
       country: '',
       minStalls: 0,
+      favoritesOnly: false,
     })
     setSearchQuery('')
   }
@@ -117,7 +120,8 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
     filters.status.length +
     filters.amenities.length +
     (filters.country ? 1 : 0) +
-    (filters.minStalls > 0 ? 1 : 0)
+    (filters.minStalls > 0 ? 1 : 0) +
+    (filters.favoritesOnly ? 1 : 0)
 
   return (
     <div className="border-b bg-white p-4">
@@ -293,6 +297,23 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
               <span>12</span>
               <span>24+</span>
             </div>
+          </div>
+
+          {/* Favorites Only Filter */}
+          <div>
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                checked={filters.favoritesOnly}
+                onChange={(e) =>
+                  setFilters({ ...filters, favoritesOnly: e.target.checked })
+                }
+                className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              />
+              <span className="ml-2 text-sm font-medium text-gray-700">
+                Show Favorites Only
+              </span>
+            </label>
           </div>
 
           {/* Clear Filters Button */}

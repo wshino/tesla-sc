@@ -28,9 +28,9 @@ test.describe('Charger List', () => {
     // Should have stalls info
     await expect(firstCharger).toContainText('stalls')
 
-    // Should have status indicator (specifically the status dot, not amenity tags)
+    // Should have status indicator (specifically the status dot, not amenity tags or favorite button)
     const statusIndicator = firstCharger.locator(
-      '.ml-4 [class*="rounded-full"]'
+      '.ml-4 > span[class*="rounded-full"][class*="inline-block"]'
     )
     await expect(statusIndicator).toBeVisible()
   })
