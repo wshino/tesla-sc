@@ -23,13 +23,13 @@ const mockCharger: Charger = {
   name: 'Tesla Supercharger Tokyo',
   address: '123 Main St',
   city: 'Tokyo',
+  state: 'Tokyo',
   country: 'Japan',
   location: {
     lat: 35.6762,
     lng: 139.6503,
   },
   stalls: 10,
-  power: 250,
   status: 'operational',
   amenities: [],
 }
@@ -39,13 +39,13 @@ const mockCharger2: Charger = {
   name: 'Tesla Supercharger Osaka',
   address: '456 Second St',
   city: 'Osaka',
+  state: 'Osaka',
   country: 'Japan',
   location: {
     lat: 34.6937,
     lng: 135.5023,
   },
   stalls: 8,
-  power: 250,
   status: 'operational',
   amenities: [],
 }
