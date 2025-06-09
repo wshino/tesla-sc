@@ -2,20 +2,60 @@
 
 import { useState, useEffect } from 'react'
 
+/**
+ * Props for the SearchFilter component
+ */
 interface SearchFilterProps {
+  /** Callback when search query changes */
   onSearchChange: (query: string) => void
+  /** Callback when filter options change */
   onFilterChange: (filters: FilterOptions) => void
+  /** List of available countries for filtering */
   availableCountries: string[]
+  /** List of available amenities for filtering */
   availableAmenities: string[]
 }
 
+/**
+ * Filter options structure
+ */
 export interface FilterOptions {
+  /** Selected operational statuses */
   status: string[]
+  /** Selected amenities */
   amenities: string[]
+  /** Selected country */
   country: string
+  /** Minimum number of charging stalls */
   minStalls: number
 }
 
+/**
+ * SearchFilter Component
+ * 
+ * Provides search and filtering capabilities for Tesla Superchargers:
+ * - Text search by name, city, or address
+ * - Filter by operational status
+ * - Filter by country
+ * - Filter by available amenities
+ * - Filter by minimum number of stalls
+ * 
+ * Features:
+ * - Debounced search input (300ms)
+ * - Collapsible filter panel
+ * - Active filter count indicator
+ * - Clear all filters option
+ * 
+ * @example
+ * ```tsx
+ * <SearchFilter
+ *   onSearchChange={handleSearch}
+ *   onFilterChange={handleFilter}
+ *   availableCountries={['USA', 'Japan', 'Canada']}
+ *   availableAmenities={['restaurants', 'shopping', 'restrooms']}
+ * />
+ * ```
+ */
 const SearchFilter: React.FC<SearchFilterProps> = ({
   onSearchChange,
   onFilterChange,

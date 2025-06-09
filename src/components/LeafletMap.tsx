@@ -16,12 +16,42 @@ if (typeof window !== 'undefined') {
   })
 }
 
+/**
+ * Props for the LeafletMap component
+ */
 interface LeafletMapProps {
+  /** Array of Tesla Supercharger locations to display as markers */
   chargers?: Charger[]
+  /** User's current location for centering the map and showing location marker */
   userLocation?: { latitude: number; longitude: number }
+  /** Callback function when a charger marker is clicked */
   onChargerClick?: (charger: Charger) => void
 }
 
+/**
+ * LeafletMap Component
+ * 
+ * Interactive map component using Leaflet to display:
+ * - Tesla Supercharger locations as custom markers
+ * - User's current location with pulsing animation
+ * - Popup information for each charger
+ * - Selected charger details panel
+ * 
+ * Features:
+ * - No API key required (uses OpenStreetMap)
+ * - Custom Tesla-themed markers
+ * - Responsive design
+ * - Click interactions
+ * 
+ * @example
+ * ```tsx
+ * <LeafletMap
+ *   chargers={superchargerLocations}
+ *   userLocation={currentLocation}
+ *   onChargerClick={handleChargerSelection}
+ * />
+ * ```
+ */
 const LeafletMap: React.FC<LeafletMapProps> = ({
   chargers = [],
   userLocation,
