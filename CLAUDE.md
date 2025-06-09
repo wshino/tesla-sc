@@ -42,12 +42,18 @@ docker-compose exec app pnpm build
 # Check for Japanese text in files (MUST pass before commit)
 # Ensure no Japanese characters (hiragana, katakana, kanji) in code or documentation
 docker-compose exec app grep -r -P '[\p{Hiragana}\p{Katakana}\p{Han}]' --include="*.ts" --include="*.tsx" --include="*.js" --include="*.jsx" --include="*.md" --include="*.json" . || echo "No Japanese text found ✓"
+
+# Verify GitHub Actions workflow locally with act (MUST pass before commit)
+# Test the complete CI pipeline to ensure it passes in GitHub Actions
+act -j test --container-architecture linux/amd64
 ```
 
 **IMPORTANT**:
 
 - Never commit if linter fails. Always fix linting errors first.
 - Never commit if Japanese text is found. All code, comments, and documentation must be in English.
+- Never commit if GitHub Actions workflow fails locally when tested with act.
+- Use act tool to verify GitHub Actions will pass before committing.
 
 ## Package Management
 
