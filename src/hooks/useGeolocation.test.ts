@@ -1,6 +1,11 @@
-import { renderHook, act, waitFor } from '@testing-library/react'
+import {
+  renderHook,
+  act,
+  waitFor,
+  RenderHookResult,
+} from '@testing-library/react'
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { useGeolocation } from './useGeolocation'
+import { useGeolocation, UseGeolocationReturn } from './useGeolocation'
 
 describe('useGeolocation', () => {
   const mockGeolocation = {
@@ -34,19 +39,24 @@ describe('useGeolocation', () => {
     vi.restoreAllMocks()
   })
 
-  it('should return initial state', () => {
+  it('should return initial state', async () => {
     // Mock permissions.query to return a promise
     mockPermissions.query.mockResolvedValue({
       state: 'prompt' as PermissionState,
       addEventListener: vi.fn(),
     })
 
-    const { result } = renderHook(() => useGeolocation())
+    let result: RenderHookResult<UseGeolocationReturn, unknown>['result']
+    await act(async () => {
+      const hookResult = renderHook(() => useGeolocation())
+      result = hookResult.result
+    })
 
     expect(result.current.position).toBeNull()
     expect(result.current.loading).toBe(false)
     expect(result.current.error).toBeNull()
-    expect(result.current.permissionState).toBeNull()
+    // After useEffect runs, permission state will be set to 'prompt'
+    expect(result.current.permissionState).toBe('prompt')
     expect(typeof result.current.getCurrentPosition).toBe('function')
   })
 
@@ -71,9 +81,13 @@ describe('useGeolocation', () => {
       success(mockPosition)
     })
 
-    const { result } = renderHook(() => useGeolocation())
+    let result: RenderHookResult<UseGeolocationReturn, unknown>['result']
+    await act(async () => {
+      const hookResult = renderHook(() => useGeolocation())
+      result = hookResult.result
+    })
 
-    act(() => {
+    await act(async () => {
       result.current.getCurrentPosition()
     })
 
@@ -105,9 +119,13 @@ describe('useGeolocation', () => {
       error(mockError)
     })
 
-    const { result } = renderHook(() => useGeolocation())
+    let result: RenderHookResult<UseGeolocationReturn, unknown>['result']
+    await act(async () => {
+      const hookResult = renderHook(() => useGeolocation())
+      result = hookResult.result
+    })
 
-    act(() => {
+    await act(async () => {
       result.current.getCurrentPosition()
     })
 

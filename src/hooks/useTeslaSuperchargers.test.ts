@@ -4,10 +4,13 @@ import { useTeslaSuperchargers } from './useTeslaSuperchargers'
 import { Charger } from '@/types/charger'
 
 // Mock the tesla-api module
-const mockFetchTeslaSuperchargers = vi.fn()
 vi.mock('@/lib/tesla-api', () => ({
-  fetchTeslaSuperchargers: mockFetchTeslaSuperchargers,
+  fetchTeslaSuperchargers: vi.fn(),
 }))
+
+// Get the mocked function after the mock is set up
+import { fetchTeslaSuperchargers } from '@/lib/tesla-api'
+const mockFetchTeslaSuperchargers = vi.mocked(fetchTeslaSuperchargers)
 
 describe('useTeslaSuperchargers Hook', () => {
   const mockChargers: Charger[] = [
