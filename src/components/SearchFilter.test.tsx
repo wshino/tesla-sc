@@ -133,6 +133,7 @@ describe('SearchFilter Component', () => {
         amenities: [],
         country: '',
         minStalls: 0,
+        favoritesOnly: false,
       })
     )
 
@@ -258,6 +259,7 @@ describe('SearchFilter Component', () => {
       amenities: [],
       country: '',
       minStalls: 0,
+      favoritesOnly: false,
     })
 
     expect(searchInput).toHaveValue('')
@@ -290,6 +292,7 @@ describe('SearchFilter Component', () => {
       amenities: [],
       country: '',
       minStalls: 0,
+      favoritesOnly: false,
     })
   })
 
