@@ -10,11 +10,39 @@ import {
 import { Charger } from '@/types/charger'
 import { getWalkingInfo } from '@/lib/location'
 
+/**
+ * Props for the NearbyPlaces component
+ */
 interface NearbyPlacesProps {
+  /** The Tesla Supercharger location to find nearby places for */
   charger: Charger
+  /** Callback function when the modal is closed */
   onClose: () => void
 }
 
+/**
+ * NearbyPlaces Component
+ *
+ * Modal component that displays nearby places around a Tesla Supercharger location.
+ * Uses Google Places API to find restaurants, cafes, shopping, and other amenities
+ * within a 400-meter radius (approximately 5 minutes walking distance).
+ *
+ * Features:
+ * - Place type filtering (restaurants, cafes, shopping, etc.)
+ * - Walking time and distance calculations
+ * - Ratings and price level indicators
+ * - Opening hours status
+ * - Detailed place information modal
+ * - Direct links to Google Maps
+ *
+ * @example
+ * ```tsx
+ * <NearbyPlaces
+ *   charger={selectedCharger}
+ *   onClose={() => setShowNearbyPlaces(false)}
+ * />
+ * ```
+ */
 export const NearbyPlaces: React.FC<NearbyPlacesProps> = ({
   charger,
   onClose,

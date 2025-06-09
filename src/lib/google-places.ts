@@ -19,6 +19,12 @@ export interface Place {
   opening_hours?: {
     open_now: boolean
   }
+  photos?: Array<{
+    photo_reference: string
+    height: number
+    width: number
+    html_attributions: string[]
+  }>
 }
 
 export interface NearbySearchParams {
@@ -27,7 +33,6 @@ export interface NearbySearchParams {
   type?: string
   keyword?: string
 }
-
 
 /**
  * Search for nearby places using Google Places API

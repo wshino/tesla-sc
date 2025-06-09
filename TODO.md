@@ -19,7 +19,8 @@
 
 ## Phase 1 - New Features 🚀
 
-### お気に入り機能 (Favorites Feature)
+### Favorites Feature
+
 - [ ] Add favorite button to charger items
 - [ ] Store favorites in localStorage
 - [ ] Create favorites filter/view
@@ -27,7 +28,8 @@
 - [ ] Add/remove animation for favorites
 - [ ] Tests for favorites functionality
 
-### 充電待ち時間タイマー (Charging Timer Feature)
+### Charging Timer Feature
+
 - [ ] Add charging timer component
 - [ ] Allow users to set expected charging time
 - [ ] Show countdown timer
@@ -36,10 +38,11 @@
 - [ ] Persist timer state in localStorage
 - [ ] Tests for timer functionality
 
-### ネイティブ広告 (Native Ads Feature)
+### Native Ads Feature
+
 - [ ] Create sponsored content component
 - [ ] Insert ads every 5 items in charger list
-- [ ] Add "PR" or "広告" label to ads
+- [ ] Add "Sponsored" or "Ad" label to ads
 - [ ] Style ads to blend naturally but be distinguishable
 - [ ] Track ad impressions/clicks
 - [ ] Create ad content management system

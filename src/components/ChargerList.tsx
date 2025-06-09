@@ -3,13 +3,39 @@
 import { Charger } from '@/types/charger'
 import { formatDistance } from '@/lib/location'
 
+/**
+ * Props for the ChargerList component
+ */
 interface ChargerListProps {
+  /** Array of Tesla Supercharger locations to display */
   chargers: Charger[]
+  /** Callback function when a charger is selected */
   onChargerSelect: (charger: Charger) => void
+  /** ID of the currently selected charger for highlighting */
   selectedChargerId?: string
+  /** User's current location for distance calculations */
   userLocation?: { latitude: number; longitude: number }
 }
 
+/**
+ * ChargerList Component
+ *
+ * Displays a scrollable list of Tesla Supercharger locations with:
+ * - Distance from user's current location (if available)
+ * - Number of charging stalls
+ * - Available amenities
+ * - Operational status
+ *
+ * @example
+ * ```tsx
+ * <ChargerList
+ *   chargers={superchargerData}
+ *   onChargerSelect={handleChargerSelection}
+ *   selectedChargerId={selectedId}
+ *   userLocation={currentLocation}
+ * />
+ * ```
+ */
 export default function ChargerList({
   chargers,
   onChargerSelect,
