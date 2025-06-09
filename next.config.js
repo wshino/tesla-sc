@@ -4,6 +4,29 @@ const nextConfig = {
   swcMinify: true,
   output: 'standalone',
   transpilePackages: ['react-leaflet', '@react-leaflet/core'],
+  
+  // Performance optimizations
+  compiler: {
+    // Remove console logs in production
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  
+  // Experimental features for better performance
+  experimental: {
+    // Optimize CSS
+    optimizeCss: true,
+    // Enable server actions
+    serverActions: {
+      bodySizeLimit: '2mb',
+    },
+  },
+  
+  // Image optimization
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    domains: [],
+  },
+  
   // Docker environment configuration
   webpack: (config, { dev, isServer }) => {
     // Enable hot reload in Docker
@@ -13,6 +36,33 @@ const nextConfig = {
         aggregateTimeout: 300,
       }
     }
+    
+    // Optimize bundle size
+    if (!dev) {
+      config.optimization = {
+        ...config.optimization,
+        moduleIds: 'deterministic',
+        splitChunks: {
+          chunks: 'all',
+          cacheGroups: {
+            default: false,
+            vendors: false,
+            lib: {
+              test: /[\\/]node_modules[\\/]/,
+              name: 'lib',
+              priority: 10,
+              reuseExistingChunk: true,
+            },
+            leaflet: {
+              test: /[\\/]node_modules[\\/](leaflet|react-leaflet)[\\/]/,
+              name: 'leaflet',
+              priority: 20,
+            },
+          },
+        },
+      }
+    }
+    
     return config
   },
 }
