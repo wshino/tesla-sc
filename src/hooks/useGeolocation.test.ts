@@ -1,11 +1,6 @@
-import {
-  renderHook,
-  act,
-  waitFor,
-  RenderHookResult,
-} from '@testing-library/react'
+import { renderHook, act, waitFor } from '@testing-library/react'
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { useGeolocation, UseGeolocationReturn } from './useGeolocation'
+import { useGeolocation } from './useGeolocation'
 
 describe('useGeolocation', () => {
   const mockGeolocation = {
@@ -46,16 +41,16 @@ describe('useGeolocation', () => {
       addEventListener: vi.fn(),
     })
 
-    let result: RenderHookResult<UseGeolocationReturn, unknown>['result']
-    await act(async () => {
-      const hookResult = renderHook(() => useGeolocation())
-      result = hookResult.result
+    const { result } = renderHook(() => useGeolocation())
+
+    // Wait for useEffect to complete
+    await waitFor(() => {
+      expect(result.current.permissionState).toBe('prompt')
     })
 
     expect(result.current.position).toBeNull()
     expect(result.current.loading).toBe(false)
     expect(result.current.error).toBeNull()
-    // After useEffect runs, permission state will be set to 'prompt'
     expect(result.current.permissionState).toBe('prompt')
     expect(typeof result.current.getCurrentPosition).toBe('function')
   })
@@ -81,11 +76,7 @@ describe('useGeolocation', () => {
       success(mockPosition)
     })
 
-    let result: RenderHookResult<UseGeolocationReturn, unknown>['result']
-    await act(async () => {
-      const hookResult = renderHook(() => useGeolocation())
-      result = hookResult.result
-    })
+    const { result } = renderHook(() => useGeolocation())
 
     await act(async () => {
       result.current.getCurrentPosition()
@@ -119,11 +110,7 @@ describe('useGeolocation', () => {
       error(mockError)
     })
 
-    let result: RenderHookResult<UseGeolocationReturn, unknown>['result']
-    await act(async () => {
-      const hookResult = renderHook(() => useGeolocation())
-      result = hookResult.result
-    })
+    const { result } = renderHook(() => useGeolocation())
 
     await act(async () => {
       result.current.getCurrentPosition()
