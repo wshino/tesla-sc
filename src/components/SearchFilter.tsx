@@ -32,20 +32,20 @@ export interface FilterOptions {
 
 /**
  * SearchFilter Component
- * 
+ *
  * Provides search and filtering capabilities for Tesla Superchargers:
  * - Text search by name, city, or address
  * - Filter by operational status
  * - Filter by country
  * - Filter by available amenities
  * - Filter by minimum number of stalls
- * 
+ *
  * Features:
  * - Debounced search input (300ms)
  * - Collapsible filter panel
  * - Active filter count indicator
  * - Clear all filters option
- * 
+ *
  * @example
  * ```tsx
  * <SearchFilter

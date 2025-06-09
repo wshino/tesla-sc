@@ -22,11 +22,11 @@ interface NearbyPlacesProps {
 
 /**
  * NearbyPlaces Component
- * 
+ *
  * Modal component that displays nearby places around a Tesla Supercharger location.
  * Uses Google Places API to find restaurants, cafes, shopping, and other amenities
  * within a 400-meter radius (approximately 5 minutes walking distance).
- * 
+ *
  * Features:
  * - Place type filtering (restaurants, cafes, shopping, etc.)
  * - Walking time and distance calculations
@@ -34,7 +34,7 @@ interface NearbyPlacesProps {
  * - Opening hours status
  * - Detailed place information modal
  * - Direct links to Google Maps
- * 
+ *
  * @example
  * ```tsx
  * <NearbyPlaces

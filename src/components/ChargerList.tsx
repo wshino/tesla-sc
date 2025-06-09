@@ -19,13 +19,13 @@ interface ChargerListProps {
 
 /**
  * ChargerList Component
- * 
+ *
  * Displays a scrollable list of Tesla Supercharger locations with:
  * - Distance from user's current location (if available)
  * - Number of charging stalls
  * - Available amenities
  * - Operational status
- * 
+ *
  * @example
  * ```tsx
  * <ChargerList

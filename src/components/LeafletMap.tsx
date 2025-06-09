@@ -30,19 +30,19 @@ interface LeafletMapProps {
 
 /**
  * LeafletMap Component
- * 
+ *
  * Interactive map component using Leaflet to display:
  * - Tesla Supercharger locations as custom markers
  * - User's current location with pulsing animation
  * - Popup information for each charger
  * - Selected charger details panel
- * 
+ *
  * Features:
  * - No API key required (uses OpenStreetMap)
  * - Custom Tesla-themed markers
  * - Responsive design
  * - Click interactions
- * 
+ *
  * @example
  * ```tsx
  * <LeafletMap
