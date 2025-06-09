@@ -9,8 +9,10 @@ import CurrentLocationButton from '@/components/CurrentLocationButton'
 import ChargerList from '@/components/ChargerList'
 import SearchFilter, { FilterOptions } from '@/components/SearchFilter'
 import { useTeslaSuperchargers } from '@/hooks/useTeslaSuperchargers'
+import { useFavorites } from '@/hooks/useFavorites'
 import { NearbyPlaces } from '@/components/NearbyPlaces'
 import { MobileBottomSheet } from '@/components/MobileBottomSheet'
+import FavoritesList from '@/components/FavoritesList'
 
 // Dynamic import for Map component to avoid SSR issues
 const LeafletMap = dynamic(() => import('@/components/LeafletMap'), {
@@ -21,12 +23,14 @@ const LeafletMap = dynamic(() => import('@/components/LeafletMap'), {
 export default function Home() {
   const [selectedCharger, setSelectedCharger] = useState<Charger | null>(null)
   const [showNearbyPlaces, setShowNearbyPlaces] = useState(false)
+  const [showFavorites, setShowFavorites] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [filters, setFilters] = useState<FilterOptions>({
     status: [],
     amenities: [],
     country: '',
     minStalls: 0,
+    favoritesOnly: false,
   })
 
   const {
@@ -38,6 +42,7 @@ export default function Home() {
   })
   const { chargers: allChargers, loading: chargersLoading } =
     useTeslaSuperchargers()
+  const { isFavorite } = useFavorites()
   const [displayChargers, setDisplayChargers] = useState<Charger[]>([])
 
   // Get location on mount
@@ -100,6 +105,11 @@ export default function Home() {
       )
     }
 
+    // Apply favorites only filter
+    if (filters.favoritesOnly) {
+      filtered = filtered.filter((charger) => isFavorite(charger.id))
+    }
+
     // Sort by distance if location is available
     if (location) {
       return findNearestChargers(
@@ -111,7 +121,7 @@ export default function Home() {
     }
 
     return filtered
-  }, [allChargers, searchQuery, filters, location])
+  }, [allChargers, searchQuery, filters, location, isFavorite])
 
   // Update display chargers when filtered chargers change
   useEffect(() => {
@@ -121,6 +131,7 @@ export default function Home() {
   const handleChargerSelect = (charger: Charger) => {
     setSelectedCharger(charger)
     setShowNearbyPlaces(true)
+    setShowFavorites(false)
     // Close sidebar on mobile when selecting a charger
     if (window.innerWidth < 768) {
       setSidebarOpen(false)
@@ -188,14 +199,35 @@ export default function Home() {
         {/* Header with location button */}
         <div className="border-b p-4">
           <h1 className="mb-4 text-2xl font-bold">Tesla Supercharger Finder</h1>
-          <CurrentLocationButton
-            onLocationReceived={(latitude, longitude) => {
-              console.log('Location received:', { latitude, longitude })
-            }}
-            onError={(error) => {
-              console.error('Location error:', error)
-            }}
-          />
+          <div className="flex gap-2">
+            <CurrentLocationButton
+              onLocationReceived={(latitude, longitude) => {
+                console.log('Location received:', { latitude, longitude })
+              }}
+              onError={(error) => {
+                console.error('Location error:', error)
+              }}
+            />
+            <button
+              onClick={() => setShowFavorites(true)}
+              className="flex items-center gap-2 rounded-lg bg-gray-100 px-4 py-2 transition-colors hover:bg-gray-200"
+            >
+              <svg
+                className="h-5 w-5 text-red-500"
+                fill="currentColor"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                />
+              </svg>
+              <span className="text-sm font-medium">Favorites</span>
+            </button>
+          </div>
           {geoError && (
             <p className="mt-2 text-sm text-red-600">{geoError.message}</p>
           )}
@@ -256,6 +288,21 @@ export default function Home() {
           charger={selectedCharger}
           onClose={() => setShowNearbyPlaces(false)}
         />
+      )}
+
+      {/* Favorites Modal */}
+      {showFavorites && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="mx-4 h-[600px] w-full max-w-md rounded-lg bg-white shadow-xl">
+            <FavoritesList
+              onChargerSelect={(charger) => {
+                handleChargerSelect(charger)
+                setShowFavorites(false)
+              }}
+              onClose={() => setShowFavorites(false)}
+            />
+          </div>
+        </div>
       )}
     </main>
   )
