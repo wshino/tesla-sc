@@ -19,6 +19,12 @@ export interface Place {
   opening_hours?: {
     open_now: boolean
   }
+  photos?: Array<{
+    photo_reference: string
+    height: number
+    width: number
+    html_attributions: string[]
+  }>
 }
 
 export interface NearbySearchParams {
@@ -27,11 +33,6 @@ export interface NearbySearchParams {
   type?: string
   keyword?: string
 }
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const PLACES_API_BASE = 'https://maps.googleapis.com/maps/api/place'
 
 /**
  * Search for nearby places using Google Places API
