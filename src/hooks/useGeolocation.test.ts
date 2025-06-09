@@ -100,7 +100,7 @@ describe('useGeolocation', () => {
       message: 'User denied Geolocation',
     }
 
-    mockGeolocation.getCurrentPosition.mockImplementation((success, error) => {
+    mockGeolocation.getCurrentPosition.mockImplementation((_success, error) => {
       // Call error callback synchronously
       error(mockError)
     })

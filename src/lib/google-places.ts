@@ -28,10 +28,6 @@ export interface NearbySearchParams {
   keyword?: string
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const PLACES_API_BASE = 'https://maps.googleapis.com/maps/api/place'
 
 /**
  * Search for nearby places using Google Places API
