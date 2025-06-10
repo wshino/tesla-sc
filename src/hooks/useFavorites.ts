@@ -23,7 +23,7 @@ export const useFavorites = (): UseFavoritesReturn => {
     if (typeof window === 'undefined') {
       return []
     }
-    
+
     try {
       const storedFavorites = localStorage.getItem(FAVORITES_STORAGE_KEY)
       console.log('Initial load from localStorage:', storedFavorites)
@@ -45,7 +45,7 @@ export const useFavorites = (): UseFavoritesReturn => {
     if (typeof window === 'undefined') {
       return
     }
-    
+
     try {
       console.log('Saving favorites to localStorage:', favorites)
       localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favorites))
