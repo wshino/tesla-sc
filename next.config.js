@@ -10,13 +10,13 @@ const nextConfig = {
   swcMinify: true,
   output: 'standalone',
   transpilePackages: ['react-leaflet', '@react-leaflet/core'],
-  
+
   // Performance optimizations
   compiler: {
     // Remove console logs in production
     removeConsole: process.env.NODE_ENV === 'production',
   },
-  
+
   // Experimental features for better performance
   experimental: {
     // Enable server actions
@@ -24,13 +24,13 @@ const nextConfig = {
       bodySizeLimit: '2mb',
     },
   },
-  
+
   // Image optimization
   images: {
     formats: ['image/avif', 'image/webp'],
     domains: [],
   },
-  
+
   // Docker environment configuration
   webpack: (config, { dev, isServer }) => {
     // Enable hot reload in Docker
@@ -40,7 +40,7 @@ const nextConfig = {
         aggregateTimeout: 300,
       }
     }
-    
+
     // Optimize bundle size
     if (!dev) {
       config.optimization = {
@@ -66,7 +66,7 @@ const nextConfig = {
         },
       }
     }
-    
+
     return config
   },
 }
