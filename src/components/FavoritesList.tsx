@@ -112,7 +112,7 @@ export default function FavoritesList({
                       </span>
                       <span
                         className={`inline-block h-2 w-2 rounded-full ${
-                          charger.status === 'operational'
+                          charger.status === 'active'
                             ? 'bg-green-500'
                             : 'bg-gray-400'
                         }`}

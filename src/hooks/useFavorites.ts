@@ -17,26 +17,37 @@ interface UseFavoritesReturn {
 const FAVORITES_STORAGE_KEY = 'tesla-sc-favorites'
 
 export const useFavorites = (): UseFavoritesReturn => {
-  const [favorites, setFavorites] = useState<FavoriteCharger[]>([])
-
-  // Load favorites from localStorage on mount
-  useEffect(() => {
+  // Initialize state with a function to avoid SSR issues
+  const [favorites, setFavorites] = useState<FavoriteCharger[]>(() => {
+    // Only run on client side
+    if (typeof window === 'undefined') {
+      return []
+    }
+    
     try {
       const storedFavorites = localStorage.getItem(FAVORITES_STORAGE_KEY)
+      console.log('Initial load from localStorage:', storedFavorites)
       if (storedFavorites) {
         const parsed = JSON.parse(storedFavorites)
         if (Array.isArray(parsed)) {
-          setFavorites(parsed)
+          return parsed
         }
       }
     } catch (error) {
       console.error('Failed to load favorites from localStorage:', error)
     }
-  }, [])
+    return []
+  })
 
   // Save favorites to localStorage whenever they change
   useEffect(() => {
+    // Skip if running on server
+    if (typeof window === 'undefined') {
+      return
+    }
+    
     try {
+      console.log('Saving favorites to localStorage:', favorites)
       localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favorites))
     } catch (error) {
       console.error('Failed to save favorites to localStorage:', error)

@@ -264,7 +264,7 @@ export default function Home() {
       </div>
 
       {/* Map */}
-      <div className="relative flex-1 pt-16 md:pt-0">
+      <div className="relative z-0 flex-1 pt-16 md:pt-0">
         <LeafletMap
           chargers={displayChargers}
           userLocation={location || undefined}
@@ -292,7 +292,7 @@ export default function Home() {
 
       {/* Favorites Modal */}
       {showFavorites && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black bg-opacity-50">
           <div className="mx-4 h-[600px] w-full max-w-md rounded-lg bg-white shadow-xl">
             <FavoritesList
               onChargerSelect={(charger) => {
